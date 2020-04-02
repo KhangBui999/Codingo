@@ -8,6 +8,21 @@
     tools:context=".FlashCardActivity">
 
     <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="460dp"
+        android:fontFamily="@font/cabin"
+        android:text="Blah blah blah bloo de blah"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:translationZ="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,4 +34,104 @@
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="600dp"
+        android:fontFamily="@font/cabin_bold"
+        android:text="Learn with Flashcards"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="600dp"
+        android:fontFamily="@font/cabin_bold"
+        android:text="Learn with Flashcards"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="385dp"
+        android:layout_height="277dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="152dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="296dp"
+        android:background="@drawable/btn_rounded"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="385dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="456dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="216dp"
+        android:background="@drawable/btn_black"
+        android:fontFamily="@font/cabin"
+        android:text="NEXT"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="399dp"
+        android:layout_marginEnd="69dp"
+        android:layout_marginBottom="313dp"
+        android:fontFamily="@font/cabin"
+        android:text="Click on this flashcard to flip it!"
+        android:textSize="18sp"
+        android:translationZ="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" /><![CDATA[
+
+
+
+
+
+
+
+    tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="224dp" />
+
+
+
+]]>
 </androidx.constraintlayout.widget.ConstraintLayout>
