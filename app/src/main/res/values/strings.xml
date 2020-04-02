@@ -3,4 +3,8 @@
     <string name="nav_learn">Learn</string>
     <string name="nav_quiz">Quiz</string>
     <string name="nav_more">More</string>
+    <string name="welcome">Welcome to Codingo!</string>
+    <string name="welcome_content_1">We love to code.</string>
+    <string name="welcome_content_2">Unlock your learning\ngoals now!</string>
+    <string name="getstarted">GET STARTED</string>
 </resources>
