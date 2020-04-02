@@ -5,22 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
+    android:textAlignment="center"
     tools:context=".FlashCardActivity">
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="460dp"
+        android:id="@+id/text"
+        android:layout_width="350dp"
+        android:layout_height="154dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="169dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="350dp"
         android:fontFamily="@font/cabin"
-        android:text="Blah blah blah bloo de blah"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="25sp"
         android:translationZ="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAnswer"
+        android:layout_width="353dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="169dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="350dp"
+        android:fontFamily="@font/cabin"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:translationZ="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -52,41 +74,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="159dp"
-        android:layout_marginBottom="600dp"
-        android:fontFamily="@font/cabin_bold"
-        android:text="Learn with Flashcards"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
+    <Button
+        android:id="@+id/card_button"
+        android:layout_width="385dp"
+        android:layout_height="277dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="158dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="296dp"
+        android:background="@drawable/btn_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="385dp"
-        android:layout_height="277dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="152dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginBottom="296dp"
-        android:background="@drawable/btn_rounded"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/button"
+        android:id="@+id/next_button"
         android:layout_width="385dp"
         android:layout_height="59dp"
         android:layout_marginStart="13dp"
@@ -104,7 +107,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/tvInstructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="71dp"
@@ -112,7 +115,7 @@
         android:layout_marginEnd="69dp"
         android:layout_marginBottom="313dp"
         android:fontFamily="@font/cabin"
-        android:text="Click on this flashcard to flip it!"
+        android:text="Click on this flashcard to reveal the answer"
         android:textSize="18sp"
         android:translationZ="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
