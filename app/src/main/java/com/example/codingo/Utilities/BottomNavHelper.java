@@ -1,7 +1,6 @@
 package com.example.codingo.Utilities;
 
 import android.app.Activity;
-import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -21,7 +20,7 @@ public class BottomNavHelper {
      * @param id is the element id of the activity's layout view.
      * @return the navigation menu
      */
-    public static BottomNavigationView getNavMenu(Activity activity, int id) {
+    public BottomNavigationView getNavMenu(Activity activity, int id) {
         BottomNavigationView mNavMenu = activity.findViewById(id);
         mNavMenu.getMenu().clear();
         mNavMenu.inflateMenu(R.menu.bottom_nav_items);
@@ -52,15 +51,15 @@ public class BottomNavHelper {
         return mNavMenu;
     }
 
-    private static void launchLearnActivity() {
+    private void launchLearnActivity() {
         Log.d("com.example.codingo", "launchLearnActivity: Attempting to launch");
     }
 
-    private static void launchQuizActivity() {
+    private void launchQuizActivity() {
         Log.d("com.example.codingo", "launchQuizActivity: Attempting to launch");
     }
 
-    private static void launchMoreActivity() {
+    private void launchMoreActivity() {
         Log.d("com.example.codingo", "launchMoreActivity: Attempting to launch");
     }
 
