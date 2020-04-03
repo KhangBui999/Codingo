@@ -33,5 +33,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "launchNextActivity called from MainActivity");
         Log.i(TAG, "Launching Activity");
         //Fill in launch for next activity :)
+        //finish(); //ensures user can not press back button to MainActivity
     }
 }
