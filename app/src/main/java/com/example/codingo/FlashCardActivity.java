@@ -7,9 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.codingo.Model.Flashcard;
+
 import java.util.ArrayList;
 
 public class FlashCardActivity extends AppCompatActivity {
+
+    private Flashcard current;
+    private ArrayList<Flashcard> list;
+    private int index = 0;
+
     private Button card_button;
     private Button next_button;
     private TextView text;
@@ -24,28 +31,24 @@ public class FlashCardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash_card);
 
-        card_button = (Button) findViewById(R.id.card_button);
-        next_button = (Button) findViewById(R.id.next_button);
-        text = (TextView) findViewById(R.id.text);
-        tvAnswer = (TextView) findViewById(R.id.tvAnswer);
-        tvInstructions = (TextView) findViewById(R.id.tvInstructions);
+        list = new ArrayList<>();
+        list.add(new Flashcard("1", "Do or not do, there is no try.", "Yoda"));
+        list.add(new Flashcard("2", "If I have seen further than others, it is by " +
+                "standing upon the shoulders of giants", "Newton"));
+        current = list.get(index);
 
-        final ArrayList<String> questions=new ArrayList<String>();
-        questions.add("Do or not do, there is no try");
-        questions.add("If I have seen further than others, it is by standing upon the shoulders of giants");
+        card_button = findViewById(R.id.card_button);
+        next_button = findViewById(R.id.next_button);
+        text = findViewById(R.id.text);
+        tvAnswer = findViewById(R.id.tvAnswer);
+        tvInstructions = findViewById(R.id.tvInstructions);
 
-        final ArrayList<String> answers=new ArrayList<String>();
-        answers.add("Yoda");
-        answers.add("Newton");
-
-        text.setText(questions.get(0));
+        showFlashcard();
 
         card_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                text.setVisibility(View.INVISIBLE);
-                tvInstructions.setVisibility(View.GONE);
-                tvAnswer.setText(answers.get(0));
+                showAnswer();
             }
 
         });
@@ -53,12 +56,41 @@ public class FlashCardActivity extends AppCompatActivity {
         next_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvAnswer.setVisibility(View.INVISIBLE);
-                text.setVisibility(View.VISIBLE);
-                text.setText(questions.get(1));
-                tvInstructions.setVisibility(View.INVISIBLE);
+                nextFlashcard();
             }
 
         });
     }
+
+    protected void showFlashcard() {
+        text.setText(current.getContent());
+        text.setVisibility(View.VISIBLE);
+        tvAnswer.setVisibility(View.GONE);
+        tvInstructions.setVisibility(View.VISIBLE);
+    }
+
+    protected void showAnswer() {
+        tvAnswer.setText(current.getAnswer());
+        text.setVisibility(View.GONE);
+        tvAnswer.setVisibility(View.VISIBLE);
+        tvInstructions.setVisibility(View.GONE);
+    }
+
+    protected void nextFlashcard() {
+        if(index < list.size() - 1){
+            index++;
+            current = list.get(index);
+            showFlashcard();
+        }
+        else {
+            tvInstructions.setText("You have reached the end! Good job!");
+            text.setVisibility(View.GONE);
+            tvAnswer.setVisibility(View.GONE);
+            tvInstructions.setVisibility(View.VISIBLE);
+            card_button.setOnClickListener(null);
+            next_button.setOnClickListener(null);
+            //Include a back button or something later on :)
+        }
+    }
+
 }
