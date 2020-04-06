@@ -2,6 +2,7 @@ package com.example.codingo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private void launchNextActivity() {
         Log.i(TAG, "launchNextActivity called from MainActivity");
         Log.i(TAG, "Launching Activity");
+        Intent intent = new Intent(this, Video.class);
+        startActivity(intent);
+
         //Fill in launch for next activity :)
         //finish(); //ensures user can not press back button to MainActivity
     }
