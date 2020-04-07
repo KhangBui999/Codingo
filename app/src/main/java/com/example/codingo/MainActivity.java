@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate called from MainActivity");
+        Log.d(TAG, "onCreate called from MainActivity");
         setContentView(R.layout.activity_main);
 
         button = findViewById(R.id.btn_gs);
@@ -26,15 +26,16 @@ public class MainActivity extends AppCompatActivity {
                 launchNextActivity();
             }
         });
-        Log.i(TAG, "onCreate finished");
-        Log.i(TAG, "MainActivity loaded");
+        Log.d(TAG, "onCreate finished");
+        Log.d(TAG, "MainActivity loaded");
     }
 
     private void launchNextActivity() {
-        Log.i(TAG, "launchNextActivity called from MainActivity");
-        Log.i(TAG, "Launching Activity");
+        Log.d(TAG, "launchNextActivity called from MainActivity");
+        Log.d(TAG, "Launching Activity");
         Intent intent = new Intent(this, QuizActivity.class);
         startActivity(intent);
         finish();
+        Log.d(TAG, "finish called from MainActivity");
     }
 }

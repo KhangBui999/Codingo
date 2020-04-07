@@ -77,7 +77,7 @@
             android:paddingBottom="8dp"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -85,7 +85,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/btn_rounded"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +102,7 @@
             android:paddingBottom="8dp"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -110,7 +110,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/btn_rounded"
         app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +127,7 @@
             android:paddingBottom="8dp"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -135,7 +135,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/btn_rounded"
         app:layout_constraintEnd_toEndOf="parent"
@@ -152,7 +152,7 @@
             android:paddingBottom="8dp"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
     </androidx.cardview.widget.CardView>
 
     <ImageView

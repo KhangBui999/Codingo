@@ -2,16 +2,16 @@ package com.example.codingo.Model;
 
 import java.util.ArrayList;
 
-public class Questions {
+public class Question {
     private String id;
     private String question;
     private ArrayList<String> answers; //database attribute will be answer1, answer2, etc...
     private int correctPosition;
 
-    public Questions() {
+    public Question() {
     }
 
-    public Questions(String id, String question, ArrayList<String> answers, int correctPosition) {
+    public Question(String id, String question, ArrayList<String> answers, int correctPosition) {
         this.id = id;
         this.question = question;
         this.answers = answers;

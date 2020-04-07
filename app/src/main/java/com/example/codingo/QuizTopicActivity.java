@@ -16,12 +16,12 @@ public class QuizTopicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate called from QuizTopicActivity");
+        Log.d(TAG, "onCreate called from QuizTopicActivity");
         setContentView(R.layout.activity_quiz_topic);
 
-        Log.i(TAG, "BottomNavigationBar rendering");
+        Log.d(TAG, "BottomNavigationBar rendering");
         BottomNavHelper bnh = new BottomNavHelper();
         mNavigation = bnh.getNavMenu(this, R.id.navigation);
-        Log.i(TAG, "BottomNavigationBar rendered");
+        Log.d(TAG, "BottomNavigationBar rendered");
     }
 }
