@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private void launchNextActivity() {
         Log.d(TAG, "launchNextActivity called from MainActivity");
         Log.d(TAG, "Launching Activity");
-        Intent intent = new Intent(this, QuizActivity.class);
+        Intent intent = new Intent(this, QuizTopicActivity.class);
         startActivity(intent);
         finish();
         Log.d(TAG, "finish called from MainActivity");
