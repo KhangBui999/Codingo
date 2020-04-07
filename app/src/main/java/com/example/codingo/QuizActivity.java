@@ -76,14 +76,20 @@ public class QuizActivity extends AppCompatActivity {
         questions.add(new Question("2", "Spam", answers, 0));
         questions.add(new Question("3", "Eggs", answers, 1));
         questions.add(new Question("3", "Tomatoes", answers, 3));
+        current = questions.get(qIndex);
 
         //rendering
         renderView();
     }
 
     protected void renderView() {
-        current = questions.get(qIndex);
-        mQuestNo.setText("Question "+qIndex+" of "+questions.size());
+        mResult.setVisibility(View.GONE);
+        mBtn.setVisibility(View.GONE);
+        mCardA.setBackgroundResource(R.drawable.btn_rounded);
+        mCardB.setBackgroundResource(R.drawable.btn_rounded);
+        mCardC.setBackgroundResource(R.drawable.btn_rounded);
+        mCardD.setBackgroundResource(R.drawable.btn_rounded);
+        mQuestNo.setText("Question "+(qIndex+1)+" of "+questions.size());
         mQuestion.setText(current.getQuestion());
         mAnswerA.setText(current.getAnswers().get(0));
         mAnswerB.setText(current.getAnswers().get(1));
@@ -111,7 +117,7 @@ public class QuizActivity extends AppCompatActivity {
 
                 if(correct) {
                     cardView.setBackgroundResource(R.drawable.card_correct);
-                    //image correct
+                    mResult.setImageResource(R.drawable.correct);
                 }
                 else {
                     cardView.setBackgroundResource(R.drawable.card_incorrect);
@@ -121,7 +127,7 @@ public class QuizActivity extends AppCompatActivity {
                         case 2: mCardC.setBackgroundResource(R.drawable.card_correct); break;
                         case 3: mCardD.setBackgroundResource(R.drawable.card_correct); break;
                     }
-                    //image incorrect
+                    mResult.setImageResource(R.drawable.wrong);
                 }
 
                 mResult.setVisibility(View.VISIBLE);
@@ -144,7 +150,20 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     protected void setButtonListener() {
-
+        mBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(qIndex < questions.size()-1){
+                    qIndex++;
+                    current = questions.get(qIndex);
+                    renderView();
+                }
+                else {
+                    mBtn.setText("GO TO RESULTS");
+                    //scoreboard
+                }
+            }
+        });
     }
 
 }
