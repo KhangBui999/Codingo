@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 import com.example.codingo.QuizActivity;
 import com.example.codingo.QuizTopicActivity;
 import com.example.codingo.R;
+import com.example.codingo.ResultActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
@@ -76,10 +77,7 @@ public class BottomNavHelper {
 
     //Determines which of the three ActivityGroup the parameterised activity belongs to
     private int checkActivityGroup() {
-        if(activity instanceof QuizTopicActivity) {
-            return 1;
-        }
-        else if(activity instanceof QuizActivity) {
+        if(activity instanceof QuizTopicActivity || activity instanceof QuizActivity || activity instanceof ResultActivity) {
             return 1;
         }
         else {

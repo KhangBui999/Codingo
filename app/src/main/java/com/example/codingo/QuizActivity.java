@@ -3,6 +3,7 @@ package com.example.codingo;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -160,10 +161,22 @@ public class QuizActivity extends AppCompatActivity {
                 }
                 else {
                     mBtn.setText("GO TO RESULTS");
-                    //scoreboard
+                    //mBtn.setOnClickListener(null);
+                    mBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            launchResultActivity();
+                        }
+                    });
                 }
             }
         });
+    }
+
+    protected void launchResultActivity() {
+        Intent intent = new Intent(this, ResultActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
