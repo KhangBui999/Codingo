@@ -37,6 +37,7 @@ public class QuizActivity extends AppCompatActivity {
     private ArrayList<Question> questions = new ArrayList<>();
     private Question current;
     private int qIndex = 0;
+    private int points = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +120,7 @@ public class QuizActivity extends AppCompatActivity {
                 if(correct) {
                     cardView.setBackgroundResource(R.drawable.card_correct);
                     mResult.setImageResource(R.drawable.correct);
+                    points += 100;
                 }
                 else {
                     cardView.setBackgroundResource(R.drawable.card_incorrect);
@@ -175,6 +177,7 @@ public class QuizActivity extends AppCompatActivity {
 
     protected void launchResultActivity() {
         Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra("POINTS", points);
         startActivity(intent);
         finish();
     }

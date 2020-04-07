@@ -8,4 +8,7 @@
     <string name="welcome_content_2">Unlock your learning\ngoals now!</string>
     <string name="getstarted">GET STARTED</string>
     <string name="next">NEXT</string>
+    <string name="YAY">Yay!</string>
+    <string name="Congrats">Congratulations!</string>
+    <string name="Ok">OK</string>
 </resources>

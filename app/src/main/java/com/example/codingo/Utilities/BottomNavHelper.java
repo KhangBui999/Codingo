@@ -1,6 +1,7 @@
 package com.example.codingo.Utilities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -90,7 +91,12 @@ public class BottomNavHelper {
     }
 
     private void launchQuizActivity() {
-        Log.d("com.example.codingo", "launchQuizActivity: Attempting to launch");
+        if(!(activity instanceof QuizTopicActivity)) {
+            Intent intent = new Intent(activity, QuizTopicActivity.class);
+            activity.startActivity(intent);
+            activity.finish();
+        }
+        //Log.d("com.example.codingo", "launchQuizActivity: Attempting to launch");
     }
 
     private void launchMoreActivity() {
