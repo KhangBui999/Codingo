@@ -10,74 +10,76 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/topic"
+                android:layout_width="344dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="177dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="176dp"
+                android:scaleType="centerCrop"
+                android:text="Coding"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="340dp"
+                android:layout_height="404dp"
+                android:layout_marginStart="39dp"
+                android:layout_marginTop="56dp"
+                android:layout_marginEnd="32dp"
+                android:background="#FFFFFF"
+                android:text="Java"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+
+            <view
+                android:id="@+id/view"
+                class="com.google.android.youtube.player.YouTubePlayerView"
+                android:layout_width="315dp"
+                android:layout_height="177dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="48dp"
+                android:scaleType="centerCrop"
+                android:showText="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topic" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="162dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="162dp"
+                android:text="play"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/topic"
-        android:layout_width="215dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="177dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="176dp"
-        android:text="Coding"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"/>
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="348dp"
-        android:layout_height="401dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="32dp"
-        android:background="#FFFFFF"
-        android:scaleType="centerCrop"
-        android:text="Java"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
 
-    <view
-        android:id="@+id/view"
-        class="com.google.android.youtube.player.YouTubePlayerView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="81dp"
-        android:layout_marginEnd="96dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topic" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="49dp"
-        android:layout_marginEnd="161dp"
-        android:layout_marginBottom="39dp"
-        android:text="Play"
-        app:layout_constraintBottom_toTopOf="@+id/content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

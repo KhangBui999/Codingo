@@ -10,6 +10,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MESSAGE ="com.example.codingo" ;
     private final String TAG = "codingo.system.message";
     private Button button;
 
