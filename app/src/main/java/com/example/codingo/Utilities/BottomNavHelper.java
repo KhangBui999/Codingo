@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.example.codingo.FlashCardActivity;
 import com.example.codingo.QuizActivity;
 import com.example.codingo.QuizTopicActivity;
 import com.example.codingo.R;
@@ -78,16 +79,24 @@ public class BottomNavHelper {
 
     //Determines which of the three ActivityGroup the parameterised activity belongs to
     private int checkActivityGroup() {
-        if(activity instanceof QuizTopicActivity || activity instanceof QuizActivity || activity instanceof ResultActivity) {
+        if(activity instanceof FlashCardActivity) {
+            return 0;
+        }
+        else if(activity instanceof QuizTopicActivity || activity instanceof QuizActivity || activity instanceof ResultActivity) {
             return 1;
         }
         else {
-            return 0;
+            return 2;
         }
     }
 
     private void launchLearnActivity() {
         Log.d("com.example.codingo", "launchLearnActivity: Attempting to launch");
+        if(true){
+            Intent intent = new Intent(activity, FlashCardActivity.class);
+            activity.startActivity(intent);
+            activity.finish();
+        }
     }
 
     private void launchQuizActivity() {

@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.example.codingo.Model.Flashcard;
+import com.example.codingo.Utilities.BottomNavHelper;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 
 public class FlashCardActivity extends AppCompatActivity {
@@ -22,6 +25,7 @@ public class FlashCardActivity extends AppCompatActivity {
     private TextView text;
     private TextView tvAnswer;
     private TextView tvInstructions;
+    private BottomNavigationView mNavigation;
 
     public FlashCardActivity() {
     }
@@ -30,6 +34,9 @@ public class FlashCardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash_card);
+
+        BottomNavHelper bnh = new BottomNavHelper();
+        mNavigation = bnh.getNavMenu(this, R.id.navigation);
 
         //Creates ArrayList including the front and back of each card
         list = new ArrayList<>();
@@ -87,7 +94,7 @@ public class FlashCardActivity extends AppCompatActivity {
         tvAnswer.setText(current.getAnswer());
         text.setVisibility(View.GONE);
         tvAnswer.setVisibility(View.VISIBLE);
-        tvInstructions.setVisibility(View.GONE);
+        tvInstructions.setVisibility(View.INVISIBLE);
         mCard.setOnClickListener(null);
     }
 
