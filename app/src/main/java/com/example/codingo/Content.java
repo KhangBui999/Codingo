@@ -6,6 +6,7 @@ public class Content {
     private String topic;
     private String content;
     private String video;
+    // Initialised variables with topic changing text for the title, content changing text underneath the video and video is for changing the url
 
     public Content (String topic, String content, String video){
         this.topic = topic;

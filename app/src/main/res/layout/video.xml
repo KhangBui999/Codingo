@@ -40,7 +40,7 @@
                 android:layout_width="340dp"
                 android:layout_height="404dp"
                 android:layout_marginStart="39dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 android:background="#FFFFFF"
                 android:text="Java"
@@ -57,25 +57,24 @@
                 android:layout_width="315dp"
                 android:layout_height="177dp"
                 android:layout_marginStart="48dp"
-                android:layout_marginTop="11dp"
+                android:layout_marginTop="36dp"
                 android:layout_marginEnd="48dp"
                 android:scaleType="centerCrop"
                 android:showText="false"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/topic" />
 
-            <Button
-                android:id="@+id/button"
+            <TextView
+                android:id="@+id/prompt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="162dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="162dp"
-                android:text="play"
+                android:layout_marginEnd="92dp"
+                android:text="Click on the box to watch the video!"
+                android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                app:layout_constraintTop_toBottomOf="@id/topic" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
