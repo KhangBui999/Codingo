@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private void launchNextActivity() {
         Log.i(TAG, "launchNextActivity called from MainActivity");
         Log.i(TAG, "Launching Activity");
-        Intent intent = new Intent(this, Video.class);
+        Intent intent = new Intent(this, VideoActivity.class);
         startActivity(intent);
 
         //Fill in launch for next activity :)

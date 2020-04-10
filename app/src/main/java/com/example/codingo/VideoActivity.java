@@ -3,7 +3,6 @@ package com.example.codingo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -14,7 +13,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.ArrayList;
 
-public class Video extends YouTubeBaseActivity {
+public class VideoActivity extends YouTubeBaseActivity {
     private YouTubePlayerView mView;
     private YouTubePlayer.OnInitializedListener mListener;
     private TextView mTopic;
@@ -28,7 +27,7 @@ public class Video extends YouTubeBaseActivity {
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.video);
+        setContentView(R.layout.activity_video);
         Intent intent = getIntent();
         int position = intent.getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
         ArrayList<Content> contents = Content.getContents();
@@ -49,9 +48,9 @@ public class Video extends YouTubeBaseActivity {
                 youTubePlayer.loadVideo(mCon.getVideo());
             }
             //Interface definition for callbacks that are invoked when player initialization succeeds or fails
-             @Override
+            @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                mPrompt.setText("This video is not available!");
+                mPrompt.setText("This activity_video is not available!");
             }
         };
         // When clicking the Youtube player, the youtube player will load
