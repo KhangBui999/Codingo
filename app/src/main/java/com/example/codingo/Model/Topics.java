@@ -3,15 +3,15 @@ package com.example.codingo.Model;
 public class Topics {
     private String id;
     private String name;
-    private int image;
+    private boolean complete;
 
     public Topics () {
     }
 
-    public Topics(String id, String name, int image) {
+    public Topics(String id, String name, boolean complete) {
         this.id = id;
         this.name = name;
-        this.image = image;
+        this.complete = complete;
     }
 
     public String getId() {
@@ -30,12 +30,12 @@ public class Topics {
         this.name = name;
     }
 
-    public int getImage() {
-        return image;
+    public boolean getComplete() {
+        return complete;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 
 }
