@@ -1,6 +1,7 @@
 package com.example.codingo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,7 @@ public class FlashCardActivity extends AppCompatActivity {
     private ArrayList<Flashcard> list;
     private int index = 0;
 
-    private Button card_button;
+    private CardView mCard;
     private Button next_button;
     private Button prev_button;
     private TextView text;
@@ -39,7 +40,7 @@ public class FlashCardActivity extends AppCompatActivity {
                 "has made all the difference.", "Robert Frost"));
         current = list.get(index);
 
-        card_button = findViewById(R.id.card_button);
+        mCard = findViewById(R.id.cv_cardbutton);
         next_button = findViewById(R.id.next_button);
         prev_button = findViewById(R.id.prev_button);
         text = findViewById(R.id.text);
@@ -50,13 +51,7 @@ public class FlashCardActivity extends AppCompatActivity {
         showFlashcard();
 
         //Show the answer if the card is clicked
-        card_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAnswer();
-            }
-
-        });
+        setCardFlip();
 
         //Show the next flashcard
         next_button.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +77,7 @@ public class FlashCardActivity extends AppCompatActivity {
         text.setVisibility(View.VISIBLE);
         tvAnswer.setVisibility(View.GONE);
         tvInstructions.setVisibility(View.VISIBLE);
+        setCardFlip();
         if (index <= 0) {
             tvInstructions.setText("Click to reveal the answer");
         }
@@ -92,6 +88,7 @@ public class FlashCardActivity extends AppCompatActivity {
         text.setVisibility(View.GONE);
         tvAnswer.setVisibility(View.VISIBLE);
         tvInstructions.setVisibility(View.GONE);
+        mCard.setOnClickListener(null);
     }
 
     protected void nextFlashcard() {
@@ -115,6 +112,16 @@ public class FlashCardActivity extends AppCompatActivity {
             index = list.size();
             showFlashcard();
         }
+    }
+
+    protected void setCardFlip() {
+        mCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAnswer();
+            }
+
+        });
     }
 
 }
