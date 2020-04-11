@@ -7,4 +7,5 @@
     <string name="welcome_content_1">We love to code.</string>
     <string name="welcome_content_2">Unlock your learning\ngoals now!</string>
     <string name="getstarted">GET STARTED</string>
+    <string name="video_prompt">HINT: Click on the box to watch the video!</string>
 </resources>

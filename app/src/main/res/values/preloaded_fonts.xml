@@ -2,6 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/cabin</item>
+        <item>@font/cabin_bold</item>
         <item>@font/vibur</item>
     </array>
 </resources>
