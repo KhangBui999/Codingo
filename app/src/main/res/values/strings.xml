@@ -12,4 +12,5 @@
     <string name="Congrats">Congratulations!</string>
     <string name="Ok">OK</string>
     <string name="quiz_topic_title">Pick a topic!</string>
+    <string name="video_prompt">HINT: Click on the box to watch the video!</string>
 </resources>
