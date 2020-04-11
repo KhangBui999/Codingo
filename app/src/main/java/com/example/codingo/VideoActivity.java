@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
+import com.example.codingo.Model.Content;
 import com.example.codingo.Utilities.BottomNavHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -32,7 +33,7 @@ public class VideoActivity extends YouTubeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         Intent intent = getIntent();
-        int position = intent.getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
+        int position = intent.getIntExtra("VIDEO_ID", 0);
         ArrayList<Content> contents = Content.getContents();
 
         BottomNavHelper bnh = new BottomNavHelper();

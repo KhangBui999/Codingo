@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private void launchNextActivity() {
         Log.d(TAG, "launchNextActivity called from MainActivity");
         Log.d(TAG, "Launching Activity");
-        Intent intent = new Intent(this, FlashCardActivity.class);
+        Intent intent = new Intent(this, VideoActivity.class);
+        intent.putExtra("VIDEO_ID", 0);
         startActivity(intent);
         finish();
         Log.d(TAG, "finish called from MainActivity");
