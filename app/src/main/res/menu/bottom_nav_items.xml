@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_learn"
-        android:title="@string/nav_learn"
-        android:icon="@mipmap/learning" />
+    <item android:id="@+id/action_home"
+        android:title="@string/nav_home"
+        android:icon="@mipmap/home" />
     <item android:id="@+id/action_quiz"
         android:title="@string/nav_quiz"
         android:icon="@mipmap/check" />
-    <item android:id="@+id/action_more"
-        android:title="@string/nav_more"
-        android:icon="@mipmap/more" />
+    <item android:id="@+id/action_learn"
+        android:title="@string/nav_learn"
+        android:icon="@mipmap/learning" />
 </menu>

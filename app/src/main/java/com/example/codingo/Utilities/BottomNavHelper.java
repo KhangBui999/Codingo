@@ -18,8 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * This is a Helper class used to minimise code redundancy and improve code readability
- * of the application of the project. This Helper class in particular acts an auxiliary class
- * for the BottomNavigationView used in most of the Activity classes.
+ * of the application of the project. This Helper class contains boilerplate code so that this class
+ * acts as an auxiliary class for the BottomNavigationView used in most of the Activity classes.
  */
 public class BottomNavHelper {
 
@@ -59,16 +59,16 @@ public class BottomNavHelper {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()) {
+                    case R.id.action_home:
+                        launchHomeActivity();
+                        item.setCheckable(true);
+                        return true;
                     case R.id.action_learn:
                         launchLearnActivity();
                         item.setCheckable(true);
                         return true;
                     case R.id.action_quiz:
                         launchQuizActivity();
-                        item.setCheckable(true);
-                        return true;
-                    case R.id.action_more:
-                        launchMoreActivity();
                         item.setCheckable(true);
                         return true;
                 }
@@ -109,7 +109,7 @@ public class BottomNavHelper {
         //Log.d("com.example.codingo", "launchQuizActivity: Attempting to launch");
     }
 
-    private void launchMoreActivity() {
+    private void launchHomeActivity() {
         Log.d("com.example.codingo", "launchMoreActivity: Attempting to launch");
     }
 
