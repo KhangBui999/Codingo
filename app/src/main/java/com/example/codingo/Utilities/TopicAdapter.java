@@ -8,17 +8,16 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.codingo.Model.Topics;
+import com.example.codingo.Model.Topic;
 import com.example.codingo.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> {
-    private ArrayList<Topics> mTopics;
+    private ArrayList<Topic> mTopics;
     private RecyclerViewClickListener mListener;
 
-    public TopicAdapter(ArrayList<Topics> topics, RecyclerViewClickListener listener) {
+    public TopicAdapter(ArrayList<Topic> topics, RecyclerViewClickListener listener) {
         mTopics = topics;
         mListener = listener;
     }
@@ -55,7 +54,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     }
 
     public void onBindViewHolder(TopicViewHolder holder, int position) {
-        Topics topic = mTopics.get(position);
+        Topic topic = mTopics.get(position);
         holder.mTopic.setText(topic.getName());
     }
 

@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.example.codingo.Model.Topics;
+import com.example.codingo.Model.Topic;
 import com.example.codingo.Utilities.BottomNavHelper;
 import com.example.codingo.Utilities.TopicAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,10 +35,10 @@ public class QuizTopicActivity extends AppCompatActivity {
         mNavigation = bnh.getNavMenu(this, R.id.navigation);
         Log.d(TAG, "BottomNavigationBar rendered");
 
-        ArrayList<Topics> dummyData = new ArrayList<>();
-        dummyData.add(new Topics("1", "Intro to Java", false));
-        dummyData.add(new Topics("2", "Data types", false));
-        dummyData.add(new Topics("3", "Strings", false));
+        ArrayList<Topic> dummyData = new ArrayList<>();
+        dummyData.add(new Topic("1", "Intro to Java", false));
+        dummyData.add(new Topic("2", "Data types", false));
+        dummyData.add(new Topic("3", "Strings", false));
 
         mRecyclerView = findViewById(R.id.rvList);
         mRecyclerView.setHasFixedSize(true);

@@ -1,14 +1,14 @@
 package com.example.codingo.Model;
 
-public class Topics {
+public class Topic {
     private String id;
     private String name;
     private boolean complete;
 
-    public Topics () {
+    public Topic() {
     }
 
-    public Topics(String id, String name, boolean complete) {
+    public Topic(String id, String name, boolean complete) {
         this.id = id;
         this.name = name;
         this.complete = complete;
