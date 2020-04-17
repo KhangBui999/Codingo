@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat;
 
 import com.example.codingo.FlashCardActivity;
 import com.example.codingo.QuizActivity;
-import com.example.codingo.QuizTopicActivity;
 import com.example.codingo.R;
 import com.example.codingo.ResultActivity;
 import com.example.codingo.VideoActivity;
@@ -83,7 +82,7 @@ public class BottomNavHelper {
         if(activity instanceof FlashCardActivity || activity instanceof VideoActivity) {
             return 0;
         }
-        else if(activity instanceof QuizTopicActivity || activity instanceof QuizActivity || activity instanceof ResultActivity) {
+        else if( activity instanceof QuizActivity || activity instanceof ResultActivity) {
             return 1;
         }
         else {
@@ -101,11 +100,11 @@ public class BottomNavHelper {
     }
 
     private void launchQuizActivity() {
-        if(!(activity instanceof QuizTopicActivity)) {
-            Intent intent = new Intent(activity, QuizTopicActivity.class);
-            activity.startActivity(intent);
-            activity.finish();
-        }
+//        if(true) {
+//            Intent intent = new Intent(activity, QuizTopicActivity.class);
+//            activity.startActivity(intent);
+//            activity.finish();
+//        }
         //Log.d("com.example.codingo", "launchQuizActivity: Attempting to launch");
     }
 

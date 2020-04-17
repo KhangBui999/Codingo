@@ -22,9 +22,6 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        BottomNavHelper bnh = new BottomNavHelper();
-        mNavigation = bnh.getNavMenu(this, R.id.navigation);
-
         Intent intent = getIntent();
         int points = intent.getIntExtra("POINTS", 0);
 
@@ -36,14 +33,8 @@ public class ResultActivity extends AppCompatActivity {
         mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchQuizTopicActivity();
+                finish();
             }
         });
-    }
-
-    protected void launchQuizTopicActivity() {
-        Intent intent = new Intent(this, QuizTopicActivity.class);
-        startActivity(intent);
-        finish();
     }
 }

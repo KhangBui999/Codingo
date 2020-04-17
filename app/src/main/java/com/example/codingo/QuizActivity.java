@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class QuizActivity extends AppCompatActivity {
 
     private String TAG = "codingo.system.message";
-    private BottomNavigationView mNavigation;
     private TextView mQuestNo;
     private TextView mQuestion;
     private TextView mAnswerA;
@@ -44,11 +43,6 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate called from QuizActivity");
         setContentView(R.layout.activity_quiz);
-
-        Log.d(TAG, "BottomNavigationBar rendering");
-        BottomNavHelper bnh = new BottomNavHelper();
-        mNavigation = bnh.getNavMenu(this, R.id.navigation);
-        Log.d(TAG, "BottomNavigationBar rendered");
 
         //Linking up XML elements to Java variables
         mQuestNo = findViewById(R.id.tv_qno);

@@ -11,13 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LearnTopicActivity"></activity>
+        <activity
+            android:name=".BaseActivity"
+            android:label="@string/title_activity_base"></activity>
+        <activity android:name=".LearnTopicActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LearnActivity" />
         <activity android:name=".FlashCardActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".QuizActivity" />
-        <activity android:name=".QuizTopicActivity" />
         <activity android:name=".VideoActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -26,6 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
