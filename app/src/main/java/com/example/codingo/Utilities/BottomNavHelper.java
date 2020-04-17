@@ -9,6 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.example.codingo.FlashCardActivity;
+import com.example.codingo.HomeActivity;
+import com.example.codingo.LearnActivity;
+import com.example.codingo.MainActivity;
 import com.example.codingo.QuizActivity;
 import com.example.codingo.QuizTopicActivity;
 import com.example.codingo.R;
@@ -48,10 +51,13 @@ public class BottomNavHelper {
 
         //Sets the active icon depending on which ActivityGroup parameterised activity belongs to
         if (checkActivityGroup() == 0) {
-            mNavMenu.setSelectedItemId(R.id.action_learn);
+            mNavMenu.setSelectedItemId(R.id.action_home);
         }
         else if (checkActivityGroup() == 1) {
             mNavMenu.setSelectedItemId(R.id.action_quiz);
+        }
+        else if (checkActivityGroup() == 2) {
+            mNavMenu.setSelectedItemId(R.id.action_learn);
         }
 
         //Sets the listener for each icon/button
@@ -80,21 +86,24 @@ public class BottomNavHelper {
 
     //Determines which of the three ActivityGroup the parameterised activity belongs to
     private int checkActivityGroup() {
-        if(activity instanceof FlashCardActivity || activity instanceof VideoActivity) {
+        if (activity instanceof HomeActivity) {
             return 0;
         }
         else if(activity instanceof QuizTopicActivity || activity instanceof QuizActivity || activity instanceof ResultActivity) {
             return 1;
         }
-        else {
+        else if(activity instanceof FlashCardActivity || activity instanceof VideoActivity) {
             return 2;
+        }
+        else {
+            return 0;
         }
     }
 
     private void launchLearnActivity() {
         Log.d("com.example.codingo", "launchLearnActivity: Attempting to launch");
-        if(true){
-            Intent intent = new Intent(activity, FlashCardActivity.class);
+        if(!(activity instanceof LearnActivity)){
+            Intent intent = new Intent(activity, LearnActivity.class);
             activity.startActivity(intent);
             activity.finish();
         }
@@ -111,6 +120,11 @@ public class BottomNavHelper {
 
     private void launchHomeActivity() {
         Log.d("com.example.codingo", "launchMoreActivity: Attempting to launch");
+        if(!(activity instanceof HomeActivity)) {
+            Intent intent = new Intent(activity, HomeActivity.class);
+            activity.startActivity(intent);
+            activity.finish();
+        }
     }
 
 }

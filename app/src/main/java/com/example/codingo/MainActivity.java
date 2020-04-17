@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private void launchNextActivity() {
         Log.d(TAG, "launchNextActivity called from MainActivity");
         Log.d(TAG, "Launching Activity");
-        Intent intent = new Intent(this, VideoActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("VIDEO_ID", 0);
         startActivity(intent);
         finish();
