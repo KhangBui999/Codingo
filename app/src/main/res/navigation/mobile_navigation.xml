@@ -29,4 +29,22 @@
         android:label="@string/title_quiz"
         tools:layout="@layout/fragment_quiz_start" />
 
+    <fragment
+        android:id="@+id/navigation_learn_topic"
+        android:name="com.example.codingo.ui.LearnTopicFragment"
+        android:label="@string/title_learn"
+        tools:layout="@layout/fragment_learn_topic" />
+
+    <fragment
+        android:id="@+id/navigation_flashcard"
+        android:name="com.example.codingo.ui.FlashcardFragment"
+        android:label="@string/title_learn"
+        tools:layout="@layout/fragment_flashcard" />
+
+    <fragment
+        android:id="@+id/navigation_video_learn"
+        android:name="com.example.codingo.ui.VideoLearnFragment"
+        android:label="@string/title_learn"
+        tools:layout="@layout/fragment_video_learn" />
+
 </navigation>
