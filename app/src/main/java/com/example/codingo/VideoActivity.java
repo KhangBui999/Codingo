@@ -22,7 +22,6 @@ public class VideoActivity extends YouTubeBaseActivity {
     private TextView mTopic;
     private TextView mContent;
     private TextView mPrompt;
-    private BottomNavigationView mNavigation;
     private Content mCon;
     private static final String API_KEY = "AIzaSyB-X0GINXGVnrcwiFAMx9bZliAvMSEcEu0";
     // initialised variables for the youtube player
@@ -37,7 +36,6 @@ public class VideoActivity extends YouTubeBaseActivity {
         ArrayList<Content> contents = Content.getContents();
 
         BottomNavHelper bnh = new BottomNavHelper();
-        mNavigation = bnh.getNavMenu(this, R.id.navigation);
 
         // Retrieving information from the contents class
         mCon = contents.get(position);
