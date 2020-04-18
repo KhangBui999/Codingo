@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.codingo.Utilities.BottomNavHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ResultActivity extends AppCompatActivity {

@@ -1,5 +1,11 @@
 package com.example.codingo.ui;
 
+/**
+ * Please note that the YouTubePlayerSupportFragmentX used in VideoLearnFragment is adapted from:
+ * https://gist.github.com/medyo/f226b967213c3b8ec6f6bebb5338a492
+ * More details @ google.android.youtube.player.YouTubePlayerSupportFragmentX
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,8 +22,7 @@ import com.example.codingo.Model.Content;
 import com.example.codingo.R;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerFragment;
-import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.android.youtube.player.YouTubePlayerSupportFragmentX;
 
 import java.util.ArrayList;
 
@@ -59,17 +64,23 @@ public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInit
     }
 
     private void loadVideo() {
-        YouTubePlayerSupportFragment youtubePlayerFragment = new YouTubePlayerSupportFragment();
-        youtubePlayerFragment.initialize(API_KEY, this);
-        FragmentManager manager = getChildFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frame_fragment, youtubePlayerFragment);
-        transaction.commit();
+        try {
+            YouTubePlayerSupportFragmentX youtubePlayerFragment = new YouTubePlayerSupportFragmentX();
+            youtubePlayerFragment.initialize(API_KEY, this);
+            FragmentManager manager = getChildFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.frame_fragment, youtubePlayerFragment);
+            transaction.commit();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
         if(!b){
+            youTubePlayer.setShowFullscreenButton(false); //prevents user from encountering YouTube API issue
             youTubePlayer.cueVideo(mCon.getVideo());
         }
 

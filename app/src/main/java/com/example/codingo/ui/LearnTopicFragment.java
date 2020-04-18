@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.example.codingo.BaseActivity;
 import com.example.codingo.Model.Topic;
 import com.example.codingo.R;
-import com.example.codingo.Utilities.TopicAdapter;
+import com.example.codingo.TopicAdapter;
 
 import java.util.ArrayList;
 

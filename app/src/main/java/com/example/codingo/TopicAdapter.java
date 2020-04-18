@@ -1,4 +1,4 @@
-package com.example.codingo.Utilities;
+package com.example.codingo;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.codingo.Model.Topic;
-import com.example.codingo.R;
 
 import java.util.ArrayList;
 
