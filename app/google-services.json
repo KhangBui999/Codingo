@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "284338015364",
+    "firebase_url": "https://infs3634-codingo.firebaseio.com",
+    "project_id": "infs3634-codingo",
+    "storage_bucket": "infs3634-codingo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284338015364:android:ceabb0aca2625bdf6206d1",
+        "android_client_info": {
+          "package_name": "com.beepbop.codingo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284338015364-5b2hf50i9pnruqv1dnqc7pg2alu0i4vm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjwdcDcU9Di1m7-s6Xv-xBCrW-uG9Au9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284338015364-5b2hf50i9pnruqv1dnqc7pg2alu0i4vm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
