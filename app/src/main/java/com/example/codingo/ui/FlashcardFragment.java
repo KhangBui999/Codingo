@@ -1,19 +1,25 @@
-package com.example.codingo;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+package com.example.codingo.ui;
 
 import android.os.Bundle;
+
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.example.codingo.Model.Flashcard;
-import com.example.codingo.Utilities.BottomNavHelper;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.codingo.R;
 
 import java.util.ArrayList;
 
-public class FlashCardActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class FlashcardFragment extends Fragment {
 
     private Flashcard current;
     private ArrayList<Flashcard> list;
@@ -25,18 +31,16 @@ public class FlashCardActivity extends AppCompatActivity {
     private TextView text;
     private TextView tvAnswer;
     private TextView tvInstructions;
-    private BottomNavigationView mNavigation;
 
-    public FlashCardActivity() {
+    public FlashcardFragment() {
+        // Required empty public constructor
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flash_card);
 
-        BottomNavHelper bnh = new BottomNavHelper();
-        mNavigation = bnh.getNavMenu(this, R.id.navigation);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_flashcard, container, false);
 
         //Creates ArrayList including the front and back of each card
         list = new ArrayList<>();
@@ -47,12 +51,12 @@ public class FlashCardActivity extends AppCompatActivity {
                 "has made all the difference.", "Robert Frost"));
         current = list.get(index);
 
-        mCard = findViewById(R.id.cv_cardbutton);
-        next_button = findViewById(R.id.next_button);
-        prev_button = findViewById(R.id.prev_button);
-        text = findViewById(R.id.text);
-        tvAnswer = findViewById(R.id.tvAnswer);
-        tvInstructions = findViewById(R.id.tvInstructions);
+        mCard = root.findViewById(R.id.cv_cardbutton);
+        next_button = root.findViewById(R.id.next_button);
+        prev_button = root.findViewById(R.id.prev_button);
+        text = root.findViewById(R.id.text);
+        tvAnswer = root.findViewById(R.id.tvAnswer);
+        tvInstructions = root.findViewById(R.id.tvInstructions);
 
         //Show the first flashcard
         showFlashcard();
@@ -77,6 +81,7 @@ public class FlashCardActivity extends AppCompatActivity {
             }
 
         });
+        return root;
     }
 
     protected void showFlashcard() {
@@ -130,5 +135,4 @@ public class FlashCardActivity extends AppCompatActivity {
 
         });
     }
-
 }

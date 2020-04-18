@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.codingo.ui.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_quiz"
+        android:name="com.example.codingo.ui.QuizFragment"
+        android:label="@string/title_quiz"
+        tools:layout="@layout/fragment_quiz" />
+
+    <fragment
+        android:id="@+id/navigation_learn"
+        android:name="com.example.codingo.ui.LearnFragment"
+        android:label="@string/title_learn"
+        tools:layout="@layout/fragment_learn" />
+
+    <fragment
+        android:id="@+id/navigation_quiz_start"
+        android:name="com.example.codingo.ui.QuizStartFragment"
+        android:label="@string/title_quiz"
+        tools:layout="@layout/fragment_quiz_start" />
+
+    <fragment
+        android:id="@+id/navigation_learn_topic"
+        android:name="com.example.codingo.ui.LearnTopicFragment"
+        android:label="@string/title_learn"
+        tools:layout="@layout/fragment_learn_topic" />
+
+    <fragment
+        android:id="@+id/navigation_flashcard"
+        android:name="com.example.codingo.ui.FlashcardFragment"
+        android:label="@string/title_learn"
+        tools:layout="@layout/fragment_flashcard" />
+
+    <fragment
+        android:id="@+id/navigation_video_learn"
+        android:name="com.example.codingo.ui.VideoLearnFragment"
+        android:label="@string/title_learn"
+        tools:layout="@layout/fragment_video_learn" />
+
+</navigation>

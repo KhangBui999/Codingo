@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@mipmap/home"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_quiz"
+        android:icon="@mipmap/check"
+        android:title="@string/title_quiz" />
+
+    <item
+        android:id="@+id/navigation_learn"
+        android:icon="@mipmap/learning"
+        android:title="@string/title_learn" />
+
+</menu>

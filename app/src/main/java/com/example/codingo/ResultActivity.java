@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.codingo.Utilities.BottomNavHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ResultActivity extends AppCompatActivity {
@@ -22,9 +21,6 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        BottomNavHelper bnh = new BottomNavHelper();
-        mNavigation = bnh.getNavMenu(this, R.id.navigation);
-
         Intent intent = getIntent();
         int points = intent.getIntExtra("POINTS", 0);
 
@@ -36,14 +32,8 @@ public class ResultActivity extends AppCompatActivity {
         mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchQuizTopicActivity();
+                finish();
             }
         });
-    }
-
-    protected void launchQuizTopicActivity() {
-        Intent intent = new Intent(this, QuizTopicActivity.class);
-        startActivity(intent);
-        finish();
     }
 }
