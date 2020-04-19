@@ -8,16 +8,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "codingo.system.message";
     private Button button;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate called from MainActivity");
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
 
         button = findViewById(R.id.btn_gs);
         button.setOnClickListener(new View.OnClickListener() {
