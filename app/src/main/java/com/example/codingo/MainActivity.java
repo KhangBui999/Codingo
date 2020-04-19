@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String TAG = "codingo.system.message";
+    private final String TAG = "com.example.codingo.MainActivity";
     private Button button;
     private FirebaseAuth mAuth;
 
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate called from MainActivity");
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG, "FireBaseAuth loading");
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
 
@@ -40,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "launchNextActivity called from MainActivity");
         Log.d(TAG, "Launching Activity");
         Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra("VIDEO_ID", 0);
         startActivity(intent);
-        finish();
-        Log.d(TAG, "finish called from MainActivity");
     }
 }

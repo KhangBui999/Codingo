@@ -1,10 +1,11 @@
 package com.example.codingo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accounts.NetworkErrorException;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,15 +17,19 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class LoginActivity extends AppCompatActivity {
 
     private final String TAG = "com.example.codingo.LoginActivity";
     private FirebaseAuth mAuth;
-    private String userId;
 
     private EditText mUsername;
     private EditText mPassword;
@@ -69,10 +74,18 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        mAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        bypassLogin(currentUser);
     }
 
     protected void attemptSignIn(String email, String password) {
-        try{
+        try {
             mUsername.setVisibility(View.INVISIBLE);
             mPassword.setVisibility(View.INVISIBLE);
             mLogin.setVisibility(View.INVISIBLE);
@@ -83,8 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             mStatus.setVisibility(View.VISIBLE);
             mProgress.setVisibility(View.VISIBLE);
 
-            mAuth = FirebaseAuth.getInstance();
-            mAuth.signInWithEmailAndPassword(email, password)
+            Task<AuthResult> task = mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -98,31 +110,37 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
                                 Toast.makeText(LoginActivity.this, "Authentication failed - incorrect details",
                                         Toast.LENGTH_SHORT).show();
-                                mUsername.setVisibility(View.VISIBLE);
-                                mPassword.setVisibility(View.VISIBLE);
-                                mLogin.setVisibility(View.VISIBLE);
-                                mForgot.setVisibility(View.VISIBLE);
-                                mRegister.setVisibility(View.VISIBLE);
-                                mProgress.setIndeterminate(false);
-                                mProgress.setVisibility(View.INVISIBLE);
-                                mStatus.setVisibility(View.INVISIBLE);
+                                reloadUI();
                             }
                         }
                     });
+            Tasks.await(task, 10, TimeUnit.SECONDS);
         }
-        catch(Exception e) {
-            Log.d(TAG, "something went wrong");
+        catch (InterruptedException e) {
             e.printStackTrace();
-            Toast.makeText(LoginActivity.this, "Authentication failed - connection issue",
+            Log.d(TAG, "InterruptedException thrown");
+            e.printStackTrace();
+            Toast.makeText(LoginActivity.this, "Authentication failed - interrupted error",
                     Toast.LENGTH_SHORT).show();
-            mUsername.setVisibility(View.VISIBLE);
-            mPassword.setVisibility(View.VISIBLE);
-            mLogin.setVisibility(View.VISIBLE);
-            mForgot.setVisibility(View.VISIBLE);
-            mRegister.setVisibility(View.VISIBLE);
-            mProgress.setIndeterminate(false);
-            mProgress.setVisibility(View.INVISIBLE);
-            mStatus.setVisibility(View.INVISIBLE);
+            reloadUI();
+        }
+        catch (ExecutionException e) {
+            Log.d(TAG, "ExecutionException thrown");
+            e.printStackTrace();
+            Toast.makeText(LoginActivity.this, "Authentication failed - execution error",
+                    Toast.LENGTH_SHORT).show();
+            reloadUI();
+        }
+        catch (TimeoutException e) {
+            Log.d(TAG, "TimeoutException thrown");
+            e.printStackTrace();
+            Toast.makeText(LoginActivity.this, "Authentication failed - timeout error",
+                    Toast.LENGTH_SHORT).show();
+            reloadUI();
+        }
+        catch (IllegalStateException e) {
+            Log.d(TAG, "IllegalStateException thrown");
+            e.printStackTrace();
         }
     }
 
@@ -130,5 +148,26 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BaseActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    protected void reloadUI() {
+        mUsername.setVisibility(View.VISIBLE);
+        mPassword.setVisibility(View.VISIBLE);
+        mLogin.setVisibility(View.VISIBLE);
+        mForgot.setVisibility(View.VISIBLE);
+        mRegister.setVisibility(View.VISIBLE);
+        mProgress.setIndeterminate(false);
+        mProgress.setVisibility(View.INVISIBLE);
+        mStatus.setVisibility(View.INVISIBLE);
+    }
+
+    protected void bypassLogin(FirebaseUser user) {
+        if(user != null) {
+            Log.d(TAG, "A logged in user has been detected. Bypassing login.");
+            launchBaseActivity();
+        }
+        else {
+            Log.d(TAG, "No current user detected. Authentication form must be filled.");
+        }
     }
 }

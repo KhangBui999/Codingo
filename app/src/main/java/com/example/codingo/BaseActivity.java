@@ -2,8 +2,11 @@ package com.example.codingo;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -14,7 +17,9 @@ import androidx.navigation.ui.NavigationUI;
 
 public class BaseActivity extends AppCompatActivity {
 
+    private final String TAG = "com.example.codingo.BaseActivity";
     protected NavController navController;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,23 @@ public class BaseActivity extends AppCompatActivity {
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
+        mAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        loadUserInformation(currentUser);
+    }
+
+    protected void loadUserInformation(FirebaseUser user) {
+        if(user != null) {
+            Log.d(TAG, "A logged in user has been detected.");
+        }
+        else {
+            Log.d(TAG, "No current user detected.");
+        }
     }
 
     public NavController getNavController() {
