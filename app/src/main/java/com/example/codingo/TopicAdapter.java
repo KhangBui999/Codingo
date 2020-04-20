@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> {
+
+    private final String TAG = "com.example.codingo.TopicAdapter";
     private List<Topic> mTopics;
     private RecyclerViewClickListener mListener;
 

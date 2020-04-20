@@ -60,8 +60,8 @@ public class QuizStartFragment extends Fragment {
 
     protected void launchQuizQuestions() {
         Intent intent = new Intent(getActivity(), QuizActivity.class);
+        intent.putExtra("TOPIC_ID", getActivity().getIntent().getIntExtra("POSITION", 0));
         startActivity(intent);
     }
-
 
 }

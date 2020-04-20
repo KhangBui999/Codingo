@@ -12,12 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.codingo.Model.Question;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class QuizActivity extends AppCompatActivity {
 
-    private String TAG = "codingo.system.message";
+    private String TAG = "com.example.codingo.QuizActivity";
     private TextView mQuestNo;
     private TextView mQuestion;
     private TextView mAnswerA;
@@ -60,6 +61,9 @@ public class QuizActivity extends AppCompatActivity {
         mResult.setVisibility(View.GONE);
         mBtn.setVisibility(View.GONE);
 
+        //Retrieves data from the Firebase Server
+        retrieveQuestions();
+
         //Dummy data for testing
         ArrayList<String> answers = new ArrayList<>();
         answers.add("A");
@@ -74,6 +78,10 @@ public class QuizActivity extends AppCompatActivity {
 
         //rendering
         renderView();
+    }
+
+    protected void retrieveQuestions() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
     }
 
     protected void renderView() {

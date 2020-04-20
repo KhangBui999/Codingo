@@ -38,7 +38,7 @@ public class QuizFragment extends Fragment {
         TopicAdapter.RecyclerViewClickListener listener = new TopicAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                launchQuizStart();
+                launchQuizStart(position);
             }
         };
         mAdapter = new TopicAdapter(dummyData, listener);
@@ -46,7 +46,8 @@ public class QuizFragment extends Fragment {
         return root;
     }
 
-    public void launchQuizStart() {
+    public void launchQuizStart(int position) {
+        getActivity().getIntent().putExtra("POSITION", position);
         if(getActivity() instanceof BaseActivity) {
             ((BaseActivity) getActivity()).getNavController().navigate(R.id.navigation_quiz_start);
         }

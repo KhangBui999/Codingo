@@ -39,7 +39,7 @@ public class LearnTopicFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private TopicAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private TextView mStatus;
+    private TextView mStatus, mLoading;
     private ProgressBar mProgress;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -53,6 +53,7 @@ public class LearnTopicFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_learn_topic, container, false);
 
         mStatus = root.findViewById(R.id.tv_status);
+        mLoading = root.findViewById(R.id.tv_progress);
         mRecyclerView = root.findViewById(R.id.rvList);
         mProgress = root.findViewById(R.id.pb_topic);
 
@@ -74,6 +75,7 @@ public class LearnTopicFragment extends Fragment {
 
     private void getTopics() {
         mProgress.setIndeterminate(true);
+        mLoading.setVisibility(View.VISIBLE);
         mProgress.setVisibility(View.VISIBLE);
         List<Topic> topics = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -93,10 +95,12 @@ public class LearnTopicFragment extends Fragment {
                                 String video = topicMap.get("video_id").toString();
                                 topics.add(new Topic(id, topic, true));
                                 mAdapter.setTopicList(topics);
+                                mLoading.setVisibility(View.INVISIBLE);
                                 mProgress.setVisibility(View.INVISIBLE);
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
+                            mLoading.setVisibility(View.INVISIBLE);
                             mProgress.setVisibility(View.INVISIBLE);
                             mStatus.setVisibility(View.VISIBLE);
                         }
