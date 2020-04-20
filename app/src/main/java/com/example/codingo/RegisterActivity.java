@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -143,11 +144,15 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
+                                // Sign up success, set Display Name and redirect to BaseActivity
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(displayName).build();
+                                setUpUserDatabaseFile();
+                                launchBaseActivity();
                             } else {
-                                // If sign in fails, display a message to the user.
+                                // If sign up fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                 Toast.makeText(RegisterActivity.this, "Account creation failed - client issue",
                                         Toast.LENGTH_SHORT).show();
@@ -185,6 +190,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    private void setUpUserDatabaseFile() {
+
+    }
+
     private void reloadUI() {
         mDisplay.setVisibility(View.VISIBLE);
         mEmail.setVisibility(View.VISIBLE);
@@ -200,5 +209,10 @@ public class RegisterActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void launchBaseActivity() {
+        Intent intent = new Intent(this, BaseActivity.class);
+        startActivity(intent);
     }
 }

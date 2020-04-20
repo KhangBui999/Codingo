@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.codingo.Model.Topic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> {
-    private ArrayList<Topic> mTopics;
+    private List<Topic> mTopics;
     private RecyclerViewClickListener mListener;
 
-    public TopicAdapter(ArrayList<Topic> topics, RecyclerViewClickListener listener) {
+    public TopicAdapter(List<Topic> topics, RecyclerViewClickListener listener) {
         mTopics = topics;
         mListener = listener;
     }
@@ -26,8 +27,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     }
 
     public static class TopicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView mTopic, mProgress;
-        private ImageView mBadge;
+        private TextView mTopic;
         private RecyclerViewClickListener mListener;
 
 
@@ -36,8 +36,6 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
             mListener = listener;
             v.setOnClickListener(this);
             mTopic = v.findViewById(R.id.tv_topic);
-            mProgress = v.findViewById(R.id.tv_progress);
-            mBadge = v.findViewById(R.id.iv_badge);
         }
 
         @Override
@@ -60,6 +58,11 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     @Override
     public int getItemCount() {
         return mTopics.size();
+    }
+
+    public void setTopicList(List<Topic> list) {
+        mTopics = list;
+        notifyDataSetChanged();
     }
 
 }

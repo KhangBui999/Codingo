@@ -16,6 +16,7 @@ import com.example.codingo.R;
 import com.example.codingo.TopicAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +35,6 @@ public class LearnTopicFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_learn_topic, container, false);
-        ArrayList<Topic> dummyData = new ArrayList<>();
-        dummyData.add(new Topic("1", "Intro to Java", false));
-        dummyData.add(new Topic("2", "Data types", false));
-        dummyData.add(new Topic("3", "Strings", false));
 
         mRecyclerView = root.findViewById(R.id.rvList);
         mRecyclerView.setHasFixedSize(true);
@@ -49,8 +46,11 @@ public class LearnTopicFragment extends Fragment {
                 launchLearningContent();
             }
         };
-        mAdapter = new TopicAdapter(dummyData, listener);
+        mAdapter = new TopicAdapter(new ArrayList<>(), listener);
         mRecyclerView.setAdapter(mAdapter);
+        if(getActivity() instanceof BaseActivity) {
+            mAdapter.setTopicList(((BaseActivity) getActivity()).getContentTopic());
+        }
         return root;
     }
 
