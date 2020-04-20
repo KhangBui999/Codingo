@@ -94,16 +94,15 @@ public class LearnTopicFragment extends Fragment {
                                 String content = topicMap.get("content_body").toString();
                                 String video = topicMap.get("video_id").toString();
                                 topics.add(new Topic(id, topic, true));
-                                mAdapter.setTopicList(topics);
-                                mLoading.setVisibility(View.INVISIBLE);
-                                mProgress.setVisibility(View.INVISIBLE);
                             }
-                        } else {
+                            mAdapter.setTopicList(topics);
+                        }
+                        else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
-                            mLoading.setVisibility(View.INVISIBLE);
-                            mProgress.setVisibility(View.INVISIBLE);
                             mStatus.setVisibility(View.VISIBLE);
                         }
+                        mLoading.setVisibility(View.INVISIBLE);
+                        mProgress.setVisibility(View.INVISIBLE);
                     }
                 });
     }

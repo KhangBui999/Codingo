@@ -145,11 +145,11 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     protected boolean handleAnswer(int answer) {
-        boolean result = false;
         if(answer == current.getCorrectPosition()) {
             return true;
+        } else {
+            return false;
         }
-        return result;
     }
 
     protected void setButtonListener() {

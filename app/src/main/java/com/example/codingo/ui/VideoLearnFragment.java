@@ -99,12 +99,13 @@ public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInit
                                 String content = contentMap.get("content_body").toString();
                                 String videoId = contentMap.get("video_id").toString();
                                 mCon = new Content(topic, content, videoId);
-                                loadVideo();
-                                mProgress.setVisibility(View.INVISIBLE);
-                                mTopic.setText(mCon.getTopic());
-                                mContent.setText(mCon.getContent());
                             }
-                        } else {
+                            loadVideo();
+                            mProgress.setVisibility(View.INVISIBLE);
+                            mTopic.setText(mCon.getTopic());
+                            mContent.setText(mCon.getContent());
+                        }
+                        else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                             mProgress.setVisibility(View.INVISIBLE);
                             mContent.setText("Connection issue. Content failed to load.");
