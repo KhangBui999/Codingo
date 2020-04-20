@@ -48,9 +48,11 @@ public class LoginActivity extends AppCompatActivity {
         mPassword = findViewById(R.id.et_password);
         mLogin = findViewById(R.id.btn_login);
         mForgot = findViewById(R.id.tv_forgot);
-        mRegister = findViewById(R.id.tv_register);
+        mRegister = findViewById(R.id.tv_existing);
         mProgress = findViewById(R.id.pb_login);
         mStatus = findViewById(R.id.tv_status);
+
+        mForgot.setVisibility(View.INVISIBLE);
 
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +76,21 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        mRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchRegisterActivity();
+            }
+        });
+
         mAuth = FirebaseAuth.getInstance();
+    }
+
+    private void launchRegisterActivity() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -89,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
             mUsername.setVisibility(View.INVISIBLE);
             mPassword.setVisibility(View.INVISIBLE);
             mLogin.setVisibility(View.INVISIBLE);
-            mForgot.setVisibility(View.INVISIBLE);
+            //mForgot.setVisibility(View.INVISIBLE);
             mRegister.setVisibility(View.INVISIBLE);
             mStatus.setText("Authenticating User");
             mProgress.setIndeterminate(true);
@@ -154,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
         mUsername.setVisibility(View.VISIBLE);
         mPassword.setVisibility(View.VISIBLE);
         mLogin.setVisibility(View.VISIBLE);
-        mForgot.setVisibility(View.VISIBLE);
+        //mForgot.setVisibility(View.VISIBLE);
         mRegister.setVisibility(View.VISIBLE);
         mProgress.setIndeterminate(false);
         mProgress.setVisibility(View.INVISIBLE);

@@ -13,8 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "com.example.codingo.MainActivity";
-    private Button button;
-    private FirebaseAuth mAuth;
+    private Button mLogin;
+    private Button mRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,25 +22,40 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate called from MainActivity");
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "FireBaseAuth loading");
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
+        mLogin = findViewById(R.id.btn_gs);
+        mRegister = findViewById(R.id.btn_register);
 
-        button = findViewById(R.id.btn_gs);
-        button.setOnClickListener(new View.OnClickListener() {
+        mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchNextActivity();
+                launchLoginActivity();
             }
         });
+
+        mRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchRegisterActivity();
+            }
+        });
+
         Log.d(TAG, "onCreate finished");
         Log.d(TAG, "MainActivity loaded");
     }
 
-    private void launchNextActivity() {
-        Log.d(TAG, "launchNextActivity called from MainActivity");
-        Log.d(TAG, "Launching Activity");
+    private void launchLoginActivity() {
+        Log.d(TAG, "launchLoginActivity called from MainActivity");
+        Log.d(TAG, "Launching Login Activity");
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
+    }
+
+    private void launchRegisterActivity() {
+        Log.d(TAG, "launchRegisterActivity called from MainActivity");
+        Log.d(TAG, "Launching Register Activity");
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
