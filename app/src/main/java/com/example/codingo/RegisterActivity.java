@@ -1,36 +1,55 @@
 package com.example.codingo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private TextView mTitle;
+    private final String TAG = "com.example.codingo.LoginActivity";
+    private FirebaseAuth mAuth;
+
     private EditText mDisplay;
     private EditText mEmail;
     private EditText mPassword;
     private EditText mConfirm;
     private Button mRegister;
     private TextView mExisting;
+    private ProgressBar mProgress;
+    private TextView mStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mTitle = findViewById(R.id.tv_login);
         mDisplay = findViewById(R.id.et_display);
         mEmail = findViewById(R.id.et_email);
         mPassword = findViewById(R.id.et_password);
         mConfirm = findViewById(R.id.et_confirm);
         mRegister = findViewById(R.id.btn_register);
         mExisting = findViewById(R.id.tv_existing);
+
 
         mExisting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +121,79 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
+        mAuth = FirebaseAuth.getInstance();
+    }
+
+    protected void registerNewUser(String email, String password, String displayName) {
+        try {
+            mDisplay.setVisibility(View.INVISIBLE);
+            mEmail.setVisibility(View.INVISIBLE);
+            mPassword.setVisibility(View.INVISIBLE);
+            mConfirm.setVisibility(View.INVISIBLE);
+            mRegister.setVisibility(View.INVISIBLE);
+            mExisting.setVisibility(View.INVISIBLE);
+            mProgress.setIndeterminate(true);
+            mStatus.setText("Creating Account");
+            mStatus.setVisibility(View.VISIBLE);
+            mProgress.setVisibility(View.VISIBLE);
+
+            Task<AuthResult> task = mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(RegisterActivity.this, "Account creation failed - client issue",
+                                        Toast.LENGTH_SHORT).show();
+                                reloadUI();
+                            }
+                        }
+                    });
+            Tasks.await(task, 10, TimeUnit.SECONDS);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+            Log.d(TAG, "InterruptedException thrown");
+            e.printStackTrace();
+            Toast.makeText(RegisterActivity.this, "Account creation failed - interrupted error",
+                    Toast.LENGTH_SHORT).show();
+            reloadUI();
+        }
+        catch (ExecutionException e) {
+            Log.d(TAG, "ExecutionException thrown");
+            e.printStackTrace();
+            Toast.makeText(RegisterActivity.this, "Account creation failed - execution error",
+                    Toast.LENGTH_SHORT).show();
+            reloadUI();
+        }
+        catch (TimeoutException e) {
+            Log.d(TAG, "TimeoutException thrown");
+            e.printStackTrace();
+            Toast.makeText(RegisterActivity.this, "Account creation failed - timeout error",
+                    Toast.LENGTH_SHORT).show();
+            reloadUI();
+        }
+        catch (IllegalStateException e) {
+            Log.d(TAG, "IllegalStateException thrown");
+            e.printStackTrace();
+        }
+    }
+
+    private void reloadUI() {
+        mDisplay.setVisibility(View.VISIBLE);
+        mEmail.setVisibility(View.VISIBLE);
+        mPassword.setVisibility(View.VISIBLE);
+        mConfirm.setVisibility(View.VISIBLE);
+        mRegister.setVisibility(View.VISIBLE);
+        mExisting.setVisibility(View.VISIBLE);
+        mStatus.setVisibility(View.INVISIBLE);
+        mProgress.setVisibility(View.INVISIBLE);
     }
 
     protected void launchLoginActivity() {
