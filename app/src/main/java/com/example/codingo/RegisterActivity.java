@@ -30,10 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private final String TAG = "com.example.codingo.LoginActivity";
     private FirebaseAuth mAuth;
 
-    private EditText mDisplay;
-    private EditText mEmail;
-    private EditText mPassword;
-    private EditText mConfirm;
+    private EditText mDisplay, mEmail, mPassword, mConfirm;
     private Button mRegister;
     private TextView mExisting;
     private ProgressBar mProgress;
@@ -117,17 +114,29 @@ public class RegisterActivity extends AppCompatActivity {
                     //If the final check if passed it will activate the else statement
                     //The block of code will communicate with Firebase to create an account
                     else {
-
+                        //registerNewUser(email, password, displayName);
                     }
                 }
             }
         });
 
+        //Establishing connection to Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() != null) {
+            //signs current user out to prevent any account conflicts
+            FirebaseAuth.getInstance().signOut();
+        }
     }
 
+    /**
+     * Handles the registration of a new user
+     * @param email is the inputted email
+     * @param password is the inputted password
+     * @param displayName is the inputted display name
+     */
     protected void registerNewUser(String email, String password, String displayName) {
         try {
+            //Progress UI rendered
             mDisplay.setVisibility(View.INVISIBLE);
             mEmail.setVisibility(View.INVISIBLE);
             mPassword.setVisibility(View.INVISIBLE);
@@ -139,6 +148,7 @@ public class RegisterActivity extends AppCompatActivity {
             mStatus.setVisibility(View.VISIBLE);
             mProgress.setVisibility(View.VISIBLE);
 
+            //Initiates the registration process
             Task<AuthResult> task = mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -160,10 +170,10 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         }
                     });
-            Tasks.await(task, 10, TimeUnit.SECONDS);
+            Tasks.await(task, 10, TimeUnit.SECONDS); //ensures a time limit for network errors
         }
+        //The following catch codes handle network or Firebase Authentication issues
         catch (InterruptedException e) {
-            e.printStackTrace();
             Log.d(TAG, "InterruptedException thrown");
             e.printStackTrace();
             Toast.makeText(RegisterActivity.this, "Account creation failed - interrupted error",
@@ -190,10 +200,16 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets up database information on the newly registered for the Firestore db
+     */
     private void setUpUserDatabaseFile() {
 
     }
 
+    /**
+     * Renders UI to enable user to input rego details
+     */
     private void reloadUI() {
         mDisplay.setVisibility(View.VISIBLE);
         mEmail.setVisibility(View.VISIBLE);
@@ -205,12 +221,18 @@ public class RegisterActivity extends AppCompatActivity {
         mProgress.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * Launches LoginActivity if user has an existing account
+     */
     protected void launchLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Launches BaseActivity in the event of a successful registration event
+     */
     private void launchBaseActivity() {
         Intent intent = new Intent(this, BaseActivity.class);
         startActivity(intent);

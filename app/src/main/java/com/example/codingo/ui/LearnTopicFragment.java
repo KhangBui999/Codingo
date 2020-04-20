@@ -31,7 +31,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass that handles topic selection for the previously selected
+ * learning style. Uses a RecyclerView to display the topic options and handles the launch
+ * of the learning activity.
  */
 public class LearnTopicFragment extends Fragment {
 
@@ -42,21 +44,22 @@ public class LearnTopicFragment extends Fragment {
     private TextView mStatus, mLoading;
     private ProgressBar mProgress;
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     public LearnTopicFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //Inflating the layout
         View root = inflater.inflate(R.layout.fragment_learn_topic, container, false);
 
+        //Links the XML elements
         mStatus = root.findViewById(R.id.tv_status);
         mLoading = root.findViewById(R.id.tv_progress);
         mRecyclerView = root.findViewById(R.id.rvList);
         mProgress = root.findViewById(R.id.pb_topic);
 
+        //Setting the adapter
         mStatus.setVisibility(View.INVISIBLE);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -69,15 +72,20 @@ public class LearnTopicFragment extends Fragment {
         };
         mAdapter = new TopicAdapter(new ArrayList<>(), listener);
         mRecyclerView.setAdapter(mAdapter);
-        getTopics();
+        getTopics(); //retrieves the list of topics from the Firebase db
         return root;
     }
 
+    /**
+     * This handles the retrieval of available topics from the Firestore db.
+     */
     private void getTopics() {
+        //Progress UI
         mProgress.setIndeterminate(true);
         mLoading.setVisibility(View.VISIBLE);
         mProgress.setVisibility(View.VISIBLE);
-        List<Topic> topics = new ArrayList<>();
+
+        List<Topic> topics = new ArrayList<>(); //the topic list
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("content")
                 .orderBy("position", Query.Direction.ASCENDING)
@@ -86,6 +94,7 @@ public class LearnTopicFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            //Retrieves all available topics from the database
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Map<String, Object> topicMap = document.getData();
@@ -95,18 +104,24 @@ public class LearnTopicFragment extends Fragment {
                                 String video = topicMap.get("video_id").toString();
                                 topics.add(new Topic(id, topic, true));
                             }
+                            //Sets a new adapter list based on the Firestore results
                             mAdapter.setTopicList(topics);
                         }
                         else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                             mStatus.setVisibility(View.VISIBLE);
                         }
+                        //Progress UI finishing
                         mLoading.setVisibility(View.INVISIBLE);
                         mProgress.setVisibility(View.INVISIBLE);
                     }
                 });
     }
 
+    /**
+     * Handles the navigation of the selected learning tool.
+     * @param position of the row selected
+     */
     private void launchLearningContent(int position) {
         String type = getActivity().getIntent().getStringExtra("LEARN_TYPE");
         getActivity().getIntent().putExtra("POSITION", position);

@@ -31,19 +31,17 @@ public class LoginActivity extends AppCompatActivity {
     private final String TAG = "com.example.codingo.LoginActivity";
     private FirebaseAuth mAuth;
 
-    private EditText mUsername;
-    private EditText mPassword;
+    private EditText mUsername, mPassword;
     private Button mLogin;
-    private TextView mForgot;
-    private TextView mRegister;
+    private TextView mForgot, mRegister, mStatus;
     private ProgressBar mProgress;
-    private TextView mStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //Linking the XML elements
         mUsername = findViewById(R.id.et_email);
         mPassword = findViewById(R.id.et_password);
         mLogin = findViewById(R.id.btn_login);
@@ -52,13 +50,17 @@ public class LoginActivity extends AppCompatActivity {
         mProgress = findViewById(R.id.pb_login);
         mStatus = findViewById(R.id.tv_status);
 
+        //Disabling the access of a planned feature (forget password)
         mForgot.setVisibility(View.INVISIBLE);
 
+        //Handles when a user clicks the Login Button
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String usernameField = mUsername.getText().toString();
                 String passwordField = mPassword.getText().toString();
+
+                //If and else statements check if the user has correctly entered login details
                 if(usernameField.isEmpty() && passwordField.isEmpty()) {
                     mUsername.setError("Please enter an e-mail!");
                     mPassword.setError("Please enter a password!");
@@ -84,15 +86,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //Initialising the Firebase Authentication connection
         mAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * Launches the RegisterActivity when a user doesn't have an account.
+     */
     protected void launchRegisterActivity() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Executed after the onCreate method
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -100,8 +109,14 @@ public class LoginActivity extends AppCompatActivity {
         bypassLogin(currentUser);
     }
 
+    /**
+     * attemptSignIn method is used to authenticate the user and handle UI changes
+     * @param email
+     * @param password
+     */
     protected void attemptSignIn(String email, String password) {
         try {
+            //Authentication progress UI
             mUsername.setVisibility(View.INVISIBLE);
             mPassword.setVisibility(View.INVISIBLE);
             mLogin.setVisibility(View.INVISIBLE);
@@ -112,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
             mStatus.setVisibility(View.VISIBLE);
             mProgress.setVisibility(View.VISIBLE);
 
+            //Authenticates the user
             Task<AuthResult> task = mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -130,10 +146,11 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                     });
+            //Ensures a timeout in the event of a network issue
             Tasks.await(task, 10, TimeUnit.SECONDS);
         }
+        //The following catch methods handles network problems
         catch (InterruptedException e) {
-            e.printStackTrace();
             Log.d(TAG, "InterruptedException thrown");
             e.printStackTrace();
             Toast.makeText(LoginActivity.this, "Authentication failed - interrupted error",
@@ -160,12 +177,18 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Launches the BaseActivity in the event of a successful login
+     */
     protected void launchBaseActivity() {
         Intent intent = new Intent(this, BaseActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Renders the UI to enable user to input login details
+     */
     protected void reloadUI() {
         mUsername.setVisibility(View.VISIBLE);
         mPassword.setVisibility(View.VISIBLE);
@@ -177,6 +200,10 @@ public class LoginActivity extends AppCompatActivity {
         mStatus.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * Allows user to log in instantly if they have are still logged in on their phones.
+     * @param user is the current Firebase user account.
+     */
     protected void bypassLogin(FirebaseUser user) {
         if(user != null) {
             Log.d(TAG, "A logged in user has been detected. Bypassing login.");

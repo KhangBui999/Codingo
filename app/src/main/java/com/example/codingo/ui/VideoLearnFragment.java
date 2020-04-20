@@ -37,16 +37,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.Map;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass that handles the video and content learning tool.
+ * Class is responsible for retrieving video and learning data from Firestore and handling
+ * user interaction with the learning tool.
  */
 public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInitializedListener {
 
     private final String TAG = "com.example.codingo.ui.VideoLearnFragment";
-    private TextView mTopic;
-    private TextView mContent;
+    private TextView mTopic, mContent;
     private ProgressBar mProgress;
-    private Content mCon;
-    private static final String API_KEY = "AIzaSyB-X0GINXGVnrcwiFAMx9bZliAvMSEcEu0";
+    private Content mCon; //ontent to be displayed
+    private static final String API_KEY = "AIzaSyB-X0GINXGVnrcwiFAMx9bZliAvMSEcEu0"; //API key
 
     public VideoLearnFragment() {
         // Required empty public constructor
@@ -57,18 +58,28 @@ public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInit
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_video_learn, container, false);
-        Intent intent = getActivity().getIntent();
-        int position = intent.getIntExtra("POSITION", 0);
+
+        // Link XML elements
         mTopic =  root.findViewById(R.id.tv_topic);
         mContent = root.findViewById(R.id.tv_content);
         mProgress = root.findViewById(R.id.pb_progress);
+
+        //Retrieve the content data based on previously selected topic
+        Intent intent = getActivity().getIntent();
+        int position = intent.getIntExtra("POSITION", 0);
         getContentData(position);
         return root;
     }
 
+    /**
+     * This method is responsible for the loading of videos in the selected fragment screen.
+     */
     protected void loadVideo() {
         try {
+            //YouTubeSupportFragmentX is a custom class. Refer to top for academic reference.
             YouTubePlayerSupportFragmentX youtubePlayerFragment = new YouTubePlayerSupportFragmentX();
+
+            //Managing the fragment transactions for the youtube fragment
             youtubePlayerFragment.initialize(API_KEY, this);
             FragmentManager manager = getChildFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
@@ -80,9 +91,16 @@ public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInit
         }
     }
 
+    /**
+     * Retrieves video and content data from the Firestore server.
+     * @param position is the topic_id of the previously selected topic.
+     */
     protected void getContentData(int position) {
+        //Progress UI rendered
         mProgress.setIndeterminate(true);
         mProgress.setVisibility(View.VISIBLE);
+
+        //Retrieval of data
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("content")
                 .whereEqualTo("position", position)
@@ -92,7 +110,9 @@ public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInit
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            //Loop is used as a precaution
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Converts document from Firestore into a Content object
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Map<String, Object> contentMap = document.getData();
                                 String topic = contentMap.get("topic").toString();
@@ -100,12 +120,14 @@ public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInit
                                 String videoId = contentMap.get("video_id").toString();
                                 mCon = new Content(topic, content, videoId);
                             }
+                            //Successful UI rendered
                             loadVideo();
                             mProgress.setVisibility(View.INVISIBLE);
                             mTopic.setText(mCon.getTopic());
                             mContent.setText(mCon.getContent());
                         }
                         else {
+                            //Network failure UI rendered
                             Log.d(TAG, "Error getting documents: ", task.getException());
                             mProgress.setVisibility(View.INVISIBLE);
                             mContent.setText("Connection issue. Content failed to load.");
@@ -114,6 +136,7 @@ public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInit
                 });
     }
 
+    //Method from the YouTube API that handles the successful loading of the YouTube Video
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
         if(!b){
@@ -122,6 +145,7 @@ public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInit
         }
     }
 
+    //Method from the YouTube API that handles failed loading of the YouTube video
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
         Toast.makeText(getActivity(), "Connection issue - video failed to load!", Toast.LENGTH_SHORT).show();

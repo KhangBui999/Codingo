@@ -10,6 +10,9 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * The MainActivity is splash page that enables a user to either login or register.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "com.example.codingo.MainActivity";

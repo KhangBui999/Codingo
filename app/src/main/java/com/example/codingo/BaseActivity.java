@@ -20,15 +20,18 @@ public class BaseActivity extends AppCompatActivity {
     protected NavController navController;
     private FirebaseAuth mAuth;
 
+    //Default BottomNavigationView method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
+        //Firebase data retrieval code
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         loadUserInformation(currentUser);
 
+        //Rendering of the BottomNavigationView
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(ContextCompat.getColorStateList(this, R.color.nav_menu_selector));
         navView.setItemTextColor(ContextCompat.getColorStateList(this, R.color.nav_menu_selector));
@@ -43,6 +46,10 @@ public class BaseActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * Debugging method to detect whether a user has logged in or not
+     * @param user is the current Firebase user account logged in
+     */
     protected void loadUserInformation(FirebaseUser user) {
         if(user != null) {
             Log.d(TAG, "A logged in user has been detected.");
@@ -52,6 +59,10 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Retrieves the NavController for fragment classes to use
+     * @return the NavController used by this activity.
+     */
     public NavController getNavController() {
         return navController;
     }
