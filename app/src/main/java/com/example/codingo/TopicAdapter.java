@@ -61,7 +61,8 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     }
 
     public void setTopicList(List<Topic> list) {
-        mTopics = list;
+        mTopics.clear();
+        mTopics.addAll(list);
         notifyDataSetChanged();
     }
 

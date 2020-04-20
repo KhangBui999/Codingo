@@ -18,13 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.codingo.BaseActivity;
 import com.example.codingo.Model.Content;
 import com.example.codingo.R;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentX;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,19 +47,19 @@ public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInit
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_video_learn, container, false);
         Intent intent = getActivity().getIntent();
-        int position = intent.getIntExtra("VIDEO_ID", 0);
-        ArrayList<Content> contents = Content.getContents();
+        int position = intent.getIntExtra("POSITION", 0);
 
-        mCon = contents.get(position);
-//        mPrompt= findViewById(R.id.prompt);
-//        mView = findViewById(R.id.view);
-        mTopic =  root.findViewById(R.id.tv_topic);
-        mContent = root.findViewById(R.id.tv_content);
+        if(getActivity() instanceof BaseActivity){
+//            List<Content> contents = ((BaseActivity) getActivity()).getContentList();
+//            mCon = contents.get(position);
+            mTopic =  root.findViewById(R.id.tv_topic);
+            mContent = root.findViewById(R.id.tv_content);
 
-        loadVideo();
+            loadVideo();
 
-        mTopic.setText(mCon.getTopic());
-        mContent.setText(mCon.getContent());
+            mTopic.setText(mCon.getTopic());
+            mContent.setText(mCon.getContent());
+        }
 
         return root;
     }
