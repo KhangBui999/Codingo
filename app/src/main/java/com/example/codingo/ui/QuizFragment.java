@@ -1,9 +1,12 @@
 package com.example.codingo.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,8 +17,16 @@ import com.example.codingo.BaseActivity;
 import com.example.codingo.Model.Topic;
 import com.example.codingo.R;
 import com.example.codingo.TopicAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class QuizFragment extends Fragment {
 
@@ -23,15 +34,16 @@ public class QuizFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private TopicAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private ProgressBar mProgress;
+    private TextView mLoading;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_quiz, container, false);
-        ArrayList<Topic> dummyData = new ArrayList<>();
-        dummyData.add(new Topic("1", "Intro to Java", false));
-        dummyData.add(new Topic("2", "Data types", false));
-        dummyData.add(new Topic("3", "Strings", false));
 
         mRecyclerView = root.findViewById(R.id.rvList);
+        mProgress = root.findViewById(R.id.progressBar);
+        mLoading = root.findViewById(R.id.tv_loading);
+
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -41,13 +53,53 @@ public class QuizFragment extends Fragment {
                 launchQuizStart(position);
             }
         };
-        mAdapter = new TopicAdapter(dummyData, listener);
+        mAdapter = new TopicAdapter(new ArrayList<>(), listener);
         mRecyclerView.setAdapter(mAdapter);
+        getTopics();
         return root;
     }
 
+    protected void getTopics() {
+        // UI rendering to show progress
+        mProgress.setIndeterminate(true);
+        mProgress.setVisibility(View.VISIBLE);
+        mLoading.setVisibility(View.VISIBLE);
+
+        List<Topic> topics = new ArrayList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("content")
+                .orderBy("position", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            //Retrieves all available topics from the database
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Map<String, Object> topicMap = document.getData();
+                                String id = document.getId();
+                                String topic = topicMap.get("topic").toString();
+                                String content = topicMap.get("content_body").toString();
+                                String video = topicMap.get("video_id").toString();
+                                topics.add(new Topic(id, topic, true));
+                                mLoading.setVisibility(View.INVISIBLE);
+                            }
+                            //Sets a new adapter list based on the Firestore results
+                            mAdapter.setTopicList(topics);
+                        }
+                        else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            mLoading.setText("No topics retrieved due to network error!");
+                        }
+                        //Progress UI finishing
+                        mProgress.setVisibility(View.INVISIBLE);
+                    }
+                });
+    }
+
     public void launchQuizStart(int position) {
-        getActivity().getIntent().putExtra("POSITION", position);
+        getActivity().getIntent().putExtra("TOPIC_ID", position);
         if(getActivity() instanceof BaseActivity) {
             ((BaseActivity) getActivity()).getNavController().navigate(R.id.navigation_quiz_start);
         }

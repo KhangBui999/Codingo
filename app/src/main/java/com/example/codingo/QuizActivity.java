@@ -1,5 +1,6 @@
 package com.example.codingo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -9,28 +10,30 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.codingo.Model.Question;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
 
 public class QuizActivity extends AppCompatActivity {
 
     private String TAG = "com.example.codingo.QuizActivity";
-    private TextView mQuestNo;
-    private TextView mQuestion;
-    private TextView mAnswerA;
-    private TextView mAnswerB;
-    private TextView mAnswerC;
-    private TextView mAnswerD;
-    private CardView mCardA;
-    private CardView mCardB;
-    private CardView mCardC;
-    private CardView mCardD;
+    private TextView mQuestNo, mQuestion, mAnswerA, mAnswerB, mAnswerC, mAnswerD, mStatus;
+    private CardView mCardA, mCardB, mCardC, mCardD;
     private ImageView mResult;
     private Button mBtn;
+    private ProgressBar mProgress;
 
     private ArrayList<Question> questions = new ArrayList<>();
     private Question current;
@@ -56,32 +59,58 @@ public class QuizActivity extends AppCompatActivity {
         mCardD = findViewById(R.id.cv_answer4);
         mResult = findViewById(R.id.iv_result);
         mBtn = findViewById(R.id.btn);
+        mProgress = findViewById(R.id.progressBar2);
+        mStatus = findViewById(R.id.tv_loading);
 
-        //Makes result icon and next button invisible to the ser
-        mResult.setVisibility(View.GONE);
-        mBtn.setVisibility(View.GONE);
+        //Makes result icon and next button invisible to the see
+        mCardA.setVisibility(View.INVISIBLE);
+        mCardB.setVisibility(View.INVISIBLE);
+        mCardC.setVisibility(View.INVISIBLE);
+        mCardD.setVisibility(View.INVISIBLE);
+        mResult.setVisibility(View.INVISIBLE);
+        mBtn.setVisibility(View.INVISIBLE);
 
         //Retrieves data from the Firebase Server
-        retrieveQuestions();
-
-        //Dummy data for testing
-        ArrayList<String> answers = new ArrayList<>();
-        answers.add("A");
-        answers.add("B");
-        answers.add("C");
-        answers.add("D");
-        questions.add(new Question("1", "What is love?", answers, 2));
-        questions.add(new Question("2", "Spam", answers, 0));
-        questions.add(new Question("3", "Eggs", answers, 1));
-        questions.add(new Question("3", "Tomatoes", answers, 3));
-        current = questions.get(qIndex);
-
-        //rendering
-        renderView();
+        retrieveQuestions(getIntent().getIntExtra("TOPIC_ID", 0));
     }
 
-    protected void retrieveQuestions() {
+    protected void retrieveQuestions(int position) {
+        mProgress.setIndeterminate(true);
+        mProgress.setVisibility(View.VISIBLE);
+        mStatus.setVisibility(View.VISIBLE);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("questions")
+                .whereEqualTo("topic_id", position)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Map<String, Object> questionMap = document.getData();
+                                String id = document.getId();
+                                String question = questionMap.get("question").toString();
+                                ArrayList<String> answers = (ArrayList<String>) questionMap.get("answers");
+                                Long ucAnswerKey = (Long) questionMap.get("answer_key");
+                                int answerKey = ucAnswerKey.intValue();
+                                questions.add(new Question(id, question, answers, answerKey));
+                            }
+                            current = questions.get(qIndex);
+                            mCardA.setVisibility(View.VISIBLE);
+                            mCardB.setVisibility(View.VISIBLE);
+                            mCardC.setVisibility(View.VISIBLE);
+                            mCardD.setVisibility(View.VISIBLE);
+                            mStatus.setVisibility(View.INVISIBLE);
+                            renderView();
+                        }
+                        else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            mStatus.setText("Connection failed - error getting questions.");
+                        }
+                        mProgress.setVisibility(View.INVISIBLE);
+                    }
+                });
     }
 
     protected void renderView() {
@@ -135,7 +164,6 @@ public class QuizActivity extends AppCompatActivity {
 
                 mResult.setVisibility(View.VISIBLE);
                 mBtn.setVisibility(View.VISIBLE);
-
                 mCardA.setOnClickListener(null);
                 mCardB.setOnClickListener(null);
                 mCardC.setOnClickListener(null);
