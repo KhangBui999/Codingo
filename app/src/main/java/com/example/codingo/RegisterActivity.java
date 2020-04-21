@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        //TODO: Add Progress Bar and Status Loading Message
         mDisplay = findViewById(R.id.et_display);
         mEmail = findViewById(R.id.et_email);
         mPassword = findViewById(R.id.et_password);
@@ -48,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         mRegister = findViewById(R.id.btn_register);
         mExisting = findViewById(R.id.tv_existing);
 
-
+        //TODO: Readability and documentation
         mExisting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
