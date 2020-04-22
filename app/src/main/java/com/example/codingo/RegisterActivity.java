@@ -115,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
                     //If the final check if passed it will activate the else statement
                     //The block of code will communicate with Firebase to create an account
                     else {
-                        //registerNewUser(email, password, displayName);
+                        registerNewUser(email, password, displayName);
                     }
                 }
             }
@@ -205,7 +205,7 @@ public class RegisterActivity extends AppCompatActivity {
      * Sets up database information on the newly registered for the Firestore db
      */
     private void setUpUserDatabaseFile() {
-
+        //TODO: complete this method
     }
 
     /**
