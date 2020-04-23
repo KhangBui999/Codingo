@@ -40,7 +40,7 @@ public class FlashcardFragment extends Fragment {
     private int index = 0; //current position of the flashcard set
 
     private CardView mCard;
-    private Button next_button, prev_button;
+    private ImageView next_button, prev_button;
     private TextView text, tvAnswer, tvInstructions, mStatus;
     private ProgressBar mProgress;
 
@@ -56,9 +56,9 @@ public class FlashcardFragment extends Fragment {
 
         //Linking the variables to XML elements
         mCard = root.findViewById(R.id.cv_cardbutton);
-        next_button = root.findViewById(R.id.next_button);
-        prev_button = root.findViewById(R.id.prev_button);
         text = root.findViewById(R.id.text);
+        prev_button = root.findViewById(R.id.iv_left);
+        next_button = root.findViewById(R.id.iv_right);
         tvAnswer = root.findViewById(R.id.tvAnswer);
         tvInstructions = root.findViewById(R.id.tvInstructions);
         mProgress = root.findViewById(R.id.pb_flashcard);

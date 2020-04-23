@@ -24,12 +24,6 @@
         tools:layout="@layout/fragment_learn" />
 
     <fragment
-        android:id="@+id/navigation_quiz_start"
-        android:name="com.example.codingo.ui.QuizStartFragment"
-        android:label="@string/title_quiz"
-        tools:layout="@layout/fragment_quiz_start" />
-
-    <fragment
         android:id="@+id/navigation_learn_topic"
         android:name="com.example.codingo.ui.LearnTopicFragment"
         android:label="@string/title_learn"

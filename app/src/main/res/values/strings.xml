@@ -12,7 +12,7 @@
     <string name="YAY">Yay!</string>
     <string name="Congrats">Congratulations!</string>
     <string name="Ok">OK</string>
-    <string name="quiz_topic_title">Pick a topic!</string>
+    <string name="quiz_topic_title">Pick a topic</string>
     <string name="video_prompt">HINT: Click on the box to watch the video!</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_home">Home</string>

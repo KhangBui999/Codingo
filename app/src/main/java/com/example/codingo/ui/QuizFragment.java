@@ -1,5 +1,6 @@
 package com.example.codingo.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,11 +11,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.codingo.BaseActivity;
 import com.example.codingo.Model.Topic;
+import com.example.codingo.QuizActivity;
 import com.example.codingo.R;
 import com.example.codingo.TopicAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +46,7 @@ public class QuizFragment extends Fragment {
         mLoading = root.findViewById(R.id.tv_loading);
 
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         TopicAdapter.RecyclerViewClickListener listener = new TopicAdapter.RecyclerViewClickListener() {
             @Override
@@ -99,9 +100,8 @@ public class QuizFragment extends Fragment {
     }
 
     public void launchQuizStart(int position) {
-        getActivity().getIntent().putExtra("TOPIC_ID", position);
-        if(getActivity() instanceof BaseActivity) {
-            ((BaseActivity) getActivity()).getNavController().navigate(R.id.navigation_quiz_start);
-        }
+        Intent intent = new Intent(getActivity(), QuizActivity.class);
+        intent.putExtra("TOPIC_ID", getActivity().getIntent().getIntExtra("TOPIC_ID", 0));
+        startActivity(intent);
     }
 }

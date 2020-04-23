@@ -41,7 +41,6 @@ public class QuizActivity extends AppCompatActivity {
     private CardView mCardA, mCardB, mCardC, mCardD;
     private ImageView mResult;
     private Button mBtn;
-    private ImageButton mExit;
     private ProgressBar mProgress, mCompletion;
 
     private ArrayList<Question> questions = new ArrayList<>();
@@ -82,15 +81,6 @@ public class QuizActivity extends AppCompatActivity {
         mProgress = findViewById(R.id.progressBar2);
         mCompletion = findViewById(R.id.pb_question);
         mStatus = findViewById(R.id.tv_loading);
-        mExit = findViewById(R.id.ib_quit);
-
-        //Exit button listener
-        mExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                exitCheck();
-            }
-        });
 
         //Makes result icon and next button invisible to the see
         mCompletion.setVisibility(View.INVISIBLE);

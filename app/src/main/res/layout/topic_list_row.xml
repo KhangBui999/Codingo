@@ -8,6 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     app:cardBackgroundColor="#40FFFFFF"
+    app:cardCornerRadius="9dp"
     app:cardElevation="0dp"
     app:cardMaxElevation="0dp">
 
@@ -19,11 +20,13 @@
             android:id="@+id/tv_topic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:fontFamily="@font/cabin"
+            android:padding="8dp"
+            android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
