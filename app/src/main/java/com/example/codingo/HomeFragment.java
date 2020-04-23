@@ -1,4 +1,4 @@
-package com.example.codingo.ui;
+package com.example.codingo;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,18 +9,12 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.codingo.BaseActivity;
-import com.example.codingo.Model.Quote;
-import com.example.codingo.QuoteService;
-import com.example.codingo.R;
+import com.example.codingo.Entities.Quote;
 
 import java.io.IOException;
 

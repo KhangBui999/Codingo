@@ -1,4 +1,4 @@
-package com.example.codingo.Model;
+package com.example.codingo.Entities;
 
 import java.util.ArrayList;
 

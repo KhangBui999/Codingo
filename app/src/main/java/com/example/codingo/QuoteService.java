@@ -1,6 +1,6 @@
 package com.example.codingo;
 
-import com.example.codingo.Model.Quote;
+import com.example.codingo.Entities.Quote;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

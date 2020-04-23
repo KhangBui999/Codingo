@@ -1,4 +1,4 @@
-package com.example.codingo.ui;
+package com.example.codingo;
 
 /**
  * Please note that the YouTubePlayerSupportFragmentX used in VideoLearnFragment is adapted from:
@@ -22,9 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.codingo.BaseActivity;
-import com.example.codingo.Model.Content;
-import com.example.codingo.R;
+import com.example.codingo.Entities.Content;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -43,7 +41,7 @@ import java.util.Map;
  */
 public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInitializedListener {
 
-    private final String TAG = "com.example.codingo.ui.VideoLearnFragment";
+    private final String TAG = "com.example.codingo.VideoLearnFragment";
     private TextView mTopic, mContent;
     private ProgressBar mProgress;
     private Content mCon; //ontent to be displayed

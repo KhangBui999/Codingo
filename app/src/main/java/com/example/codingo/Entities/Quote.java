@@ -1,4 +1,4 @@
-package com.example.codingo.Model;
+package com.example.codingo.Entities;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

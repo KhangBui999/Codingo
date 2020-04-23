@@ -3,14 +3,12 @@ package com.example.codingo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.codingo.Model.Topic;
+import com.example.codingo.Entities.Topic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> {

@@ -1,7 +1,12 @@
-package com.example.codingo.ui;
+package com.example.codingo;
 
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.codingo.Model.Topic;
-import com.example.codingo.QuizActivity;
-import com.example.codingo.R;
-import com.example.codingo.TopicAdapter;
+import com.example.codingo.Entities.Topic;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,44 +26,62 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class QuizFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass that handles topic selection for the previously selected
+ * learning style. Uses a RecyclerView to display the topic options and handles the launch
+ * of the learning activity.
+ */
+public class LearnTopicFragment extends Fragment {
 
-    private final String TAG = "QuizFragment";
+    private final String TAG = "LearnTopicFragment";
     private RecyclerView mRecyclerView;
     private TopicAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private TextView mStatus, mLoading;
     private ProgressBar mProgress;
-    private TextView mLoading;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_quiz, container, false);
+    public LearnTopicFragment() {
+        // Required empty public constructor
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //Inflating the layout
+        View root = inflater.inflate(R.layout.fragment_learn_topic, container, false);
+
+        //Links the XML elements
+        mStatus = root.findViewById(R.id.tv_status);
+        mLoading = root.findViewById(R.id.tv_progress);
         mRecyclerView = root.findViewById(R.id.rvList);
-        mProgress = root.findViewById(R.id.progressBar);
-        mLoading = root.findViewById(R.id.tv_loading);
+        mProgress = root.findViewById(R.id.pb_topic);
 
+        //Setting the adapter
+        mStatus.setVisibility(View.INVISIBLE);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         TopicAdapter.RecyclerViewClickListener listener = new TopicAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                launchQuizStart(position);
+                launchLearningContent(position);
             }
         };
         mAdapter = new TopicAdapter(new ArrayList<>(), listener);
         mRecyclerView.setAdapter(mAdapter);
-        getTopics();
+        getTopics(); //retrieves the list of topics from the Firebase db
         return root;
     }
 
-    protected void getTopics() {
-        // UI rendering to show progress
+    /**
+     * This handles the retrieval of available topics from the Firestore db.
+     */
+    private void getTopics() {
+        //Progress UI
         mProgress.setIndeterminate(true);
-        mProgress.setVisibility(View.VISIBLE);
         mLoading.setVisibility(View.VISIBLE);
+        mProgress.setVisibility(View.VISIBLE);
 
-        List<Topic> topics = new ArrayList<>();
+        List<Topic> topics = new ArrayList<>(); //the topic list
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("content")
                 .orderBy("position", Query.Direction.ASCENDING)
@@ -84,24 +99,36 @@ public class QuizFragment extends Fragment {
                                 String content = topicMap.get("content_body").toString();
                                 String video = topicMap.get("video_id").toString();
                                 topics.add(new Topic(id, topic, true));
-                                mLoading.setVisibility(View.INVISIBLE);
                             }
                             //Sets a new adapter list based on the Firestore results
                             mAdapter.setTopicList(topics);
                         }
                         else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
-                            mLoading.setText("No topics retrieved due to network error!");
+                            mStatus.setVisibility(View.VISIBLE);
                         }
                         //Progress UI finishing
+                        mLoading.setVisibility(View.INVISIBLE);
                         mProgress.setVisibility(View.INVISIBLE);
                     }
                 });
     }
 
-    public void launchQuizStart(int position) {
-        Intent intent = new Intent(getActivity(), QuizActivity.class);
-        intent.putExtra("TOPIC_ID", getActivity().getIntent().getIntExtra("TOPIC_ID", 0));
-        startActivity(intent);
+    /**
+     * Handles the navigation of the selected learning tool.
+     * @param position of the row selected
+     */
+    private void launchLearningContent(int position) {
+        String type = getActivity().getIntent().getStringExtra("LEARN_TYPE");
+        getActivity().getIntent().putExtra("POSITION", position);
+        if(getActivity() instanceof BaseActivity) {
+            if(type.equals("Flashcards")) {
+                ((BaseActivity) getActivity()).getNavController().navigate(R.id.navigation_flashcard);
+            }
+            else if(type.equals("Videos")) {
+                ((BaseActivity) getActivity()).getNavController().navigate(R.id.navigation_video_learn);
+            }
+        }
     }
+
 }

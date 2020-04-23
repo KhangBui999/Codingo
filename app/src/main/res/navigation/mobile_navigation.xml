@@ -7,37 +7,37 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.codingo.ui.HomeFragment"
+        android:name="com.example.codingo.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_quiz"
-        android:name="com.example.codingo.ui.QuizFragment"
+        android:name="com.example.codingo.QuizFragment"
         android:label="@string/title_quiz"
         tools:layout="@layout/fragment_quiz" />
 
     <fragment
         android:id="@+id/navigation_learn"
-        android:name="com.example.codingo.ui.LearnFragment"
+        android:name="com.example.codingo.LearnFragment"
         android:label="@string/title_learn"
         tools:layout="@layout/fragment_learn" />
 
     <fragment
         android:id="@+id/navigation_learn_topic"
-        android:name="com.example.codingo.ui.LearnTopicFragment"
+        android:name="com.example.codingo.LearnTopicFragment"
         android:label="@string/title_learn"
         tools:layout="@layout/fragment_learn_topic" />
 
     <fragment
         android:id="@+id/navigation_flashcard"
-        android:name="com.example.codingo.ui.FlashcardFragment"
+        android:name="com.example.codingo.FlashcardFragment"
         android:label="@string/title_learn"
         tools:layout="@layout/fragment_flashcard" />
 
     <fragment
         android:id="@+id/navigation_video_learn"
-        android:name="com.example.codingo.ui.VideoLearnFragment"
+        android:name="com.example.codingo.VideoLearnFragment"
         android:label="@string/title_learn"
         tools:layout="@layout/fragment_video_learn" />
 

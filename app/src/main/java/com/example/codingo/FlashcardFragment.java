@@ -1,4 +1,4 @@
-package com.example.codingo.ui;
+package com.example.codingo;
 
 import android.os.Bundle;
 
@@ -10,14 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.codingo.Model.Content;
-import com.example.codingo.Model.Flashcard;
-import com.example.codingo.R;
+import com.example.codingo.Entities.Flashcard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,7 +31,7 @@ import java.util.Map;
  */
 public class FlashcardFragment extends Fragment {
 
-    private final String TAG = "com.example.codingo.ui.FlashcardFragment";
+    private final String TAG = "com.example.codingo.FlashcardFragment";
     private Flashcard current; //current Flashcard
     private ArrayList<Flashcard> list = new ArrayList<>(); //flashcard set
     private int index = 0; //current position of the flashcard set
