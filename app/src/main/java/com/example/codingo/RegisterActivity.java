@@ -14,13 +14,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -40,14 +46,15 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        //TODO: Add Progress Bar and Status Loading Message
+        
         mDisplay = findViewById(R.id.et_display);
         mEmail = findViewById(R.id.et_email);
         mPassword = findViewById(R.id.et_password);
         mConfirm = findViewById(R.id.et_confirm);
         mRegister = findViewById(R.id.btn_register);
         mExisting = findViewById(R.id.tv_existing);
+        mProgress = findViewById(R.id.pb_register);
+        mStatus = findViewById(R.id.tv_status);
 
         //TODO: Readability and documentation
         mExisting.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +168,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(displayName).build();
                                 setUpUserDatabaseFile();
-                                launchBaseActivity();
                             } else {
                                 // If sign up fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -205,7 +211,34 @@ public class RegisterActivity extends AppCompatActivity {
      * Sets up database information on the newly registered for the Firestore db
      */
     private void setUpUserDatabaseFile() {
-        //TODO: complete this method
+        String userUID = mAuth.getCurrentUser().getUid();
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("badges", new ArrayList<>());
+        userInfo.put("topicComplete", new ArrayList<>());
+        userInfo.put("points", 0);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(userUID)
+                .set(userInfo)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                        launchBaseActivity();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                        Log.d(TAG, "Deleting user account from auth service");
+                        mAuth.getCurrentUser().delete();
+                        Toast.makeText(RegisterActivity.this, "Account creation failed - network error",
+                                Toast.LENGTH_SHORT).show();
+                        reloadUI();
+                    }
+                });
+
     }
 
     /**

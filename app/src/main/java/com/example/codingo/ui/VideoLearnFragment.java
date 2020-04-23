@@ -116,7 +116,7 @@ public class VideoLearnFragment extends Fragment implements YouTubePlayer.OnInit
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Map<String, Object> contentMap = document.getData();
                                 String topic = contentMap.get("topic").toString();
-                                String content = contentMap.get("content_body").toString();
+                                String content = contentMap.get("content_body").toString().replace("_n", "\n");
                                 String videoId = contentMap.get("video_id").toString();
                                 mCon = new Content(topic, content, videoId);
                             }
