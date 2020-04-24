@@ -16,4 +16,9 @@
         android:icon="@mipmap/learning"
         android:title="@string/title_learn" />
 
+    <item
+        android:id="@+id/navigation_profile_menu"
+        android:icon="@mipmap/profile"
+        android:title="@string/title_profile" />
+
 </menu>

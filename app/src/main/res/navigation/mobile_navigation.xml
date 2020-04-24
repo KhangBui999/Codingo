@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_learn" />
 
     <fragment
+        android:id="@+id/navigation_profile_menu"
+        android:name="com.example.codingo.ProfileMenuFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile_menu" />
+
+    <fragment
         android:id="@+id/navigation_learn_topic"
         android:name="com.example.codingo.LearnTopicFragment"
         android:label="@string/title_learn"
@@ -40,5 +46,23 @@
         android:name="com.example.codingo.VideoLearnFragment"
         android:label="@string/title_learn"
         tools:layout="@layout/fragment_video_learn" />
+
+    <fragment
+        android:id="@+id/navigation_user_profile"
+        android:name="com.example.codingo.UserProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_user_profile" />
+
+    <fragment
+        android:id="@+id/navigation_leaderboard"
+        android:name="com.example.codingo.LeaderboardFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_leaderboard" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.codingo.SettingsFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>
