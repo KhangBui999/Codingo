@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -166,7 +167,10 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(displayName).build();
+                                        .setDisplayName(displayName)
+                                        .setPhotoUri(Uri.parse("https://avatars.dicebear.com/v2/bottts/"+mAuth.getUid()+".svg"))
+                                        .build();
+                                task.getResult().getUser().updateProfile(profileUpdates);
                                 setUpUserDatabaseFile();
                             } else {
                                 // If sign up fails, display a message to the user.
@@ -214,8 +218,10 @@ public class RegisterActivity extends AppCompatActivity {
         String userUID = mAuth.getCurrentUser().getUid();
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("badges", new ArrayList<>());
-        userInfo.put("topicComplete", new ArrayList<>());
-        userInfo.put("points", 0);
+        userInfo.put("xp", Integer.valueOf(0));
+        userInfo.put("points", Integer.valueOf(0));
+        userInfo.put("attempt", Integer.valueOf(0));
+        userInfo.put("correct", Integer.valueOf(0));
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(userUID)

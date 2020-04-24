@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.codingo.Entities.Quote;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
 
@@ -27,8 +28,9 @@ public class HomeFragment extends Fragment {
 
     private ImageButton mQuizButton, mFlashcardButton, mVideoButton;
     private CardView mCard;
-    private TextView mQuote, mAuthor;
+    private TextView mQuote, mAuthor, mWelcome;
     private ProgressBar mProgress;
+    private FirebaseAuth mAuth;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View  root = inflater.inflate(R.layout.fragment_home, container, false);
+        mWelcome = root.findViewById(R.id.tv_welcome);
         mQuizButton = root.findViewById(R.id.ib_quiz);
         mFlashcardButton = root.findViewById(R.id.ib_flashcards);
         mVideoButton = root.findViewById(R.id.ib_video);
@@ -44,6 +47,11 @@ public class HomeFragment extends Fragment {
         mQuote = root.findViewById(R.id.tv_quote);
         mAuthor = root.findViewById(R.id.tv_author);
         mProgress = root.findViewById(R.id.pb_quote);
+
+        mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() != null) {
+            mWelcome.setText("Welcome, "+mAuth.getCurrentUser().getDisplayName()+"!");
+        }
 
         mQuizButton.setOnClickListener(new View.OnClickListener() {
             @Override

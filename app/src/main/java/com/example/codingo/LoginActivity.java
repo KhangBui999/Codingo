@@ -206,7 +206,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     protected void bypassLogin(FirebaseUser user) {
         if(user != null) {
-            Log.d(TAG, "A logged in user has been detected. Bypassing login.");
+            Log.d(TAG, "Logged in user:"+user.getUid()+". Bypassing login.");
             launchBaseActivity();
         }
         else {
