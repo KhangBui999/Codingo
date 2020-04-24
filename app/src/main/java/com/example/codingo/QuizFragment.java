@@ -98,7 +98,7 @@ public class QuizFragment extends Fragment {
 
     public void launchQuizStart(int position) {
         Intent intent = new Intent(getActivity(), QuizActivity.class);
-        intent.putExtra("TOPIC_ID", getActivity().getIntent().getIntExtra("TOPIC_ID", 0));
+        intent.putExtra("TOPIC_ID", position);
         startActivity(intent);
     }
 }
