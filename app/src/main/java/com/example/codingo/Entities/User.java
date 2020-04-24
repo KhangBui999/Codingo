@@ -95,7 +95,7 @@ public class User {
             return "0.00%";
         }
         else {
-            DecimalFormat decimalFormat = new DecimalFormat("000.##");
+            DecimalFormat decimalFormat = new DecimalFormat("00.##");
             return decimalFormat.format(((double)this.correct/(double)this.attempts)*100)+"%";
         }
     }

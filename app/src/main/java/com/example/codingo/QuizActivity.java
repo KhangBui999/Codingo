@@ -276,6 +276,8 @@ public class QuizActivity extends AppCompatActivity {
     protected void launchResultActivity() {
         Intent intent = new Intent(this, ResultActivity.class);
         intent.putExtra("POINTS", points);
+        intent.putExtra("TOPIC_ID", getIntent().getIntExtra("TOPIC_ID", 0));
+        intent.putExtra("NUM_OF_QUEST", questions.size());
         startActivity(intent);
         finish();
     }
