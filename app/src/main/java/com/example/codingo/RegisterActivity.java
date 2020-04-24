@@ -168,7 +168,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(displayName)
-                                        .setPhotoUri(Uri.parse("https://avatars.dicebear.com/v2/bottts/"+mAuth.getUid()+".svg"))
+                                        .setPhotoUri(Uri.parse("https://robohash.org/"+mAuth.getUid()+".png"))
                                         .build();
                                 task.getResult().getUser().updateProfile(profileUpdates);
                                 setUpUserDatabaseFile();
