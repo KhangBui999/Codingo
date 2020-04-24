@@ -23,6 +23,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Transaction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ResultActivity extends AppCompatActivity {
 
     private TextView mPoints;
@@ -66,10 +69,13 @@ public class ResultActivity extends AppCompatActivity {
                 long newXp = snapshot.getLong("xp") + ((totalQuest*50)+points);
                 long newAttempt = snapshot.getLong("attempt") + totalQuest;
                 long newCorrect = snapshot.getLong("correct") + (points/200);
+                ArrayList<String> badges = (ArrayList<String>) snapshot.get("badges");
+                ArrayList<String> newBadgeList = getNewBadgeList(topicId, points, totalQuest, badges, newPoints);
                 transaction.update(userRef, "points", newPoints)
                         .update(userRef, "xp", newXp)
                         .update(userRef, "attempt", newAttempt)
-                        .update(userRef, "correct", newCorrect);
+                        .update(userRef, "correct", newCorrect)
+                        .update(userRef, "badges", newBadgeList);
                 return null;
             }
         }).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -99,5 +105,32 @@ public class ResultActivity extends AppCompatActivity {
                 mCardView.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    protected ArrayList<String> getNewBadgeList(int topicId, int points, int totalQuest,
+                                                ArrayList<String> badges, long newPoints) {
+        ArrayList<String> result = new ArrayList<>();
+        result.addAll(badges);
+        if(points == (totalQuest*200)){
+            String newTopicBadge = "0";
+            switch(topicId){
+                case 0: newTopicBadge = "NjhSOydPScumEfkshn6V"; break;
+                case 1: newTopicBadge = "JhQ7wEgIKZ2udrL4O3yK"; break;
+                case 2: newTopicBadge = "eFITibZwha70GjSkgGtW"; break;
+                case 3: newTopicBadge = "axb6mTmone4xRu2dWS18"; break;
+                case 4: newTopicBadge = "7HUTiDf31TFoXfE0xYGe"; break;
+                case 5: newTopicBadge = "rq34RI8igSXXh5WGulYl"; break;
+            }
+            if(!result.contains(newTopicBadge) && !newTopicBadge.equals("0")) {
+                result.add(newTopicBadge);
+            }
+            if(result.size() == 6){
+                result.add("HsnVObLUUHPmmNY1yFPE");
+            }
+        }
+        if(newPoints > 1000000){
+            result.add("fOfh0PVSoOD5vrKwHUk4");
+        }
+        return result;
     }
 }
