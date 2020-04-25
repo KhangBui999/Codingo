@@ -1,14 +1,12 @@
 package com.example.codingo;
 
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.PictureDrawable;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.codingo.Entities.Badge;
 import com.example.codingo.Entities.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,8 +26,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,6 +44,9 @@ public class UserProfileFragment extends Fragment {
     private ImageView mImage;
     private TextView mDisplayName, mPoints, mAttempt, mCorrect, mAccuracy, mLoading;
     private ProgressBar mProgress;
+    private RecyclerView mRecyclerView;
+    private BadgeAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayout;
     private FirebaseAuth mAuth;
     private User userAccount;
 
@@ -65,6 +71,8 @@ public class UserProfileFragment extends Fragment {
         mImage = root.findViewById(R.id.imageView2);
         mDisplayName = root.findViewById(R.id.tv_display);
         mPoints = root.findViewById(R.id.tv_points);
+
+        mRecyclerView = root.findViewById(R.id.rvList);
 
         mAttempt = root.findViewById(R.id.tv_attempts);
         mCorrect = root.findViewById(R.id.tv_correct);
@@ -108,7 +116,7 @@ public class UserProfileFragment extends Fragment {
                         int correct = ucCorrect.intValue();
                         int attempt = ucAttempt.intValue();
                         userAccount = new User(uid, name, imageUrl, xp, points, badgeList, correct, attempt);
-                        loadUserProfile(db, badgeList);
+                        loadProfileBadges(db, badgeList);
                     }
                     else {
                         Log.d(TAG, "No such document");
@@ -125,8 +133,56 @@ public class UserProfileFragment extends Fragment {
 
     }
 
-    protected void loadUserProfile(FirebaseFirestore db, ArrayList<String> list) {
+    protected void loadProfileBadges(FirebaseFirestore db, ArrayList<String> list) {
+        List<Badge> badges = new ArrayList<>();
+        db.collection("badges")
+                .orderBy("position", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            Log.d(TAG, "QuerySnapshot successful");
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                Map<String, Object> badgeMap = document.getData();
+                                String name = badgeMap.get("name").toString();
+                                String desc = badgeMap.get("desc").toString();
+                                String refString = badgeMap.get("image_ref").toString();
+                                int imageRef = getResources().getIdentifier(refString, "drawable", getActivity().getPackageName());
+                                Long ucPosition = (Long) badgeMap.get("position");
+                                int pos = ucPosition.intValue();
+                                if(list.contains(document.getId())) {
+                                    badges.add(new Badge(document.getId(), name, desc, imageRef, pos));
+                                }
+                                else {
+                                    badges.add(new Badge(document.getId(), "Not Achieved",
+                                            desc, R.drawable.bg_homeicon, pos));
+                                }
+                            }
+                            loadEntireProfile(badges);
+                        }
+                        else {
+
+                        }
+                    }
+                });
+    }
+
+    private void loadEntireProfile(List<Badge> badges) {
         mLoading.setVisibility(View.INVISIBLE);
+        mRecyclerView.setHasFixedSize(true);
+        mLayout = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(mLayout);
+        BadgeAdapter.RecyclerViewClickListener listener = new BadgeAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                //Do nothing for now
+            }
+        };
+        mAdapter = new BadgeAdapter(badges, listener);
+        mRecyclerView.setAdapter(mAdapter);
+        mProgress.setVisibility(View.INVISIBLE);
         Glide.with(getActivity())
                 .load(userAccount.getProfilePicUrl())
                 .placeholder(R.mipmap.ic_logo)
