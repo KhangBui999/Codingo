@@ -171,7 +171,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         .setPhotoUri(Uri.parse("https://robohash.org/"+mAuth.getUid()+".png"))
                                         .build();
                                 task.getResult().getUser().updateProfile(profileUpdates);
-                                setUpUserDatabaseFile();
+                                setUpUserDatabaseFile(displayName, "https://robohash.org/"+mAuth.getUid()+".png");
                             } else {
                                 // If sign up fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -214,7 +214,7 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * Sets up database information on the newly registered for the Firestore db
      */
-    private void setUpUserDatabaseFile() {
+    private void setUpUserDatabaseFile(String name, String url) {
         String userUID = mAuth.getCurrentUser().getUid();
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("badges", new ArrayList<>());
@@ -222,8 +222,8 @@ public class RegisterActivity extends AppCompatActivity {
         userInfo.put("points", Integer.valueOf(0));
         userInfo.put("attempt", Integer.valueOf(0));
         userInfo.put("correct", Integer.valueOf(0));
-        userInfo.put("name", mAuth.getCurrentUser().getDisplayName());
-        userInfo.put("image", mAuth.getCurrentUser().getPhotoUrl());
+        userInfo.put("name", name);
+        userInfo.put("image", url);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(userUID)
