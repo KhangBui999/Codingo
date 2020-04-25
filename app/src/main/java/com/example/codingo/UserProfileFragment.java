@@ -108,7 +108,7 @@ public class UserProfileFragment extends Fragment {
                         int correct = ucCorrect.intValue();
                         int attempt = ucAttempt.intValue();
                         userAccount = new User(uid, name, imageUrl, xp, points, badgeList, correct, attempt);
-                        loadUserProfile();
+                        loadUserProfile(db, badgeList);
                     }
                     else {
                         Log.d(TAG, "No such document");
@@ -125,7 +125,7 @@ public class UserProfileFragment extends Fragment {
 
     }
 
-    protected void loadUserProfile() {
+    protected void loadUserProfile(FirebaseFirestore db, ArrayList<String> list) {
         mLoading.setVisibility(View.INVISIBLE);
         Glide.with(getActivity())
                 .load(userAccount.getProfilePicUrl())
