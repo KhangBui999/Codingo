@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.codingo.Entities.User;
 
 import java.util.List;
@@ -61,11 +62,21 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.mPos.setText(Integer.toString(position+1));
         holder.mName.setText(user.getName());
         holder.mPoints.setText(Integer.toString(user.getPoints()));
+        Glide.with(holder.itemView.getContext())
+                .load(user.getProfilePicUrl())
+                .placeholder(R.mipmap.ic_logo)
+                .into(holder.mImage);
     }
 
     @Override
     public int getItemCount() {
         return mUsers.size();
+    }
+
+    public void updateUserList(List<User> users) {
+        mUsers.clear();
+        mUsers.addAll(users);
+        notifyDataSetChanged();
     }
 
 }

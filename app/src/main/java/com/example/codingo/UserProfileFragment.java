@@ -163,7 +163,8 @@ public class UserProfileFragment extends Fragment {
                             loadEntireProfile(badges);
                         }
                         else {
-
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            mLoading.setText("NETWORK ERROR: No data loaded!");
                         }
                     }
                 });
