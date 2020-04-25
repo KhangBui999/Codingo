@@ -222,6 +222,8 @@ public class RegisterActivity extends AppCompatActivity {
         userInfo.put("points", Integer.valueOf(0));
         userInfo.put("attempt", Integer.valueOf(0));
         userInfo.put("correct", Integer.valueOf(0));
+        userInfo.put("name", mAuth.getCurrentUser().getDisplayName());
+        userInfo.put("image", mAuth.getCurrentUser().getPhotoUrl());
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(userUID)
