@@ -3,6 +3,10 @@ package com.example.codingo.Entities;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * User data model class
+ * Used in the UserProfileFragment and the LeaderbaordFragment.
+ */
 public class User {
 
     private String uid;

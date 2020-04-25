@@ -12,6 +12,10 @@ import com.example.codingo.Entities.Badge;
 
 import java.util.List;
 
+/**
+ * A simple Adapter class for the Badge class. Used in the UserProfileFragment class to store
+ * badges a user has obtained.
+ */
 public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.BadgeViewHolder> {
 
     private final String TAG = "com.example.codingo.BadgeAdapter";

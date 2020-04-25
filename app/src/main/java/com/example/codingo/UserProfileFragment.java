@@ -1,3 +1,15 @@
+/*
+ * INFS3634 Group Assignment 2020 T1 - Team 31
+ *
+ * This is an Android mobile application that showcases the use of functional Android building blocks
+ * and the implementation of other features such as Google Firebase and API calls. Submitted as part of
+ * a group assignment for the course, INFS3634.
+ *
+ * Authors:
+ * Shara Bakal, Khang Bui, Laurence Truong & Brian Vu
+ *
+ */
+
 package com.example.codingo;
 
 import android.os.Bundle;
@@ -35,7 +47,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass that displays the User Profile.
+ * Used as a controller class to perform a database transaction to read user data.
+ * Converts user data to display on the screen. Displays: display name, total points earned,
+ * badges obtained and quiz statistics.
  */
 public class UserProfileFragment extends Fragment {
 
@@ -61,6 +76,7 @@ public class UserProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
+        //Linking XMl elements
         mLoading = root.findViewById(R.id.tv_loading);
         mProgress = root.findViewById(R.id.pb_loading);
 
@@ -78,10 +94,13 @@ public class UserProfileFragment extends Fragment {
         mCorrect = root.findViewById(R.id.tv_correct);
         mAccuracy = root.findViewById(R.id.tv_accRate);
 
-        getUserData();
+        getUserData(); //retrieves User Data
         return root;
     }
 
+    /**
+     * This method performs database transactions to read data from the Firestore database
+     */
     protected void getUserData() {
         mCardUser.setVisibility(View.INVISIBLE);
         mCardBadge.setVisibility(View.INVISIBLE);
@@ -133,6 +152,11 @@ public class UserProfileFragment extends Fragment {
 
     }
 
+    /**
+     * This method handles the badge display UI
+     * @param db is the database instance
+     * @param list is the data retrieved from the database.
+     */
     protected void loadProfileBadges(FirebaseFirestore db, ArrayList<String> list) {
         List<Badge> badges = new ArrayList<>();
         db.collection("badges")
@@ -170,6 +194,10 @@ public class UserProfileFragment extends Fragment {
                 });
     }
 
+    /**
+     * This method updates the entire profile's UI (except for the badge UI which is completed first)
+     * @param badges is the new set of badges
+     */
     private void loadEntireProfile(List<Badge> badges) {
         mLoading.setVisibility(View.INVISIBLE);
         mRecyclerView.setHasFixedSize(true);

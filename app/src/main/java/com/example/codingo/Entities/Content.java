@@ -1,7 +1,7 @@
 package com.example.codingo.Entities;
 
 /**
- * Model class for Content
+ * Model class for Content.
  * Used in the VideoLearnFragment to retrieve videos, content and title text.
  */
 public class Content {

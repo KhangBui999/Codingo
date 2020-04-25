@@ -24,6 +24,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * The HomeFragment is the first class a user sees when logging into Codingo. It contains a
+ * personalised welcome message, quick access buttons and an inspirational quote that a user
+ * can refresh.
+ */
 public class HomeFragment extends Fragment {
 
     private ImageButton mQuizButton, mFlashcardButton, mVideoButton;

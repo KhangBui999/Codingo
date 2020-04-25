@@ -32,6 +32,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * The RegisterActivity is a controller class that handles user input in the login form.
+ * It's main functions is to detect errors and run error handling code, execute db transactions with
+ * Firebase Firestore and any subsequent side effects of these code e.g. UI changes or launching
+ * BaseActivity (if registration was successful).
+ * Additional functions include making a new data document for the new user in Firebase Firestore.
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private final String TAG = "com.example.codingo.LoginActivity";
@@ -57,7 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
         mProgress = findViewById(R.id.pb_register);
         mStatus = findViewById(R.id.tv_status);
 
-        //TODO: Readability and documentation
         mExisting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        //When registration button is clicked
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

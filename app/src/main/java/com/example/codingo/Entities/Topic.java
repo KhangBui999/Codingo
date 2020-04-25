@@ -1,5 +1,9 @@
 package com.example.codingo.Entities;
 
+/**
+ * Topic data model class. Used in the topic selection for both learn and quiz modules.
+ * Used in LearnTopicFragment and the QuizFragment.
+ */
 public class Topic {
     private String id;
     private String name;

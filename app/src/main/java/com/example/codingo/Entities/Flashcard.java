@@ -2,7 +2,7 @@ package com.example.codingo.Entities;
 
 /**
  * Model class for the Flashcard
- * Used to hold flashcards from the Firebase server in the FlashcardFragmnet
+ * Used to hold flashcards from the Firebase server in the FlashcardFragment.
  */
 public class Flashcard {
     private String id;

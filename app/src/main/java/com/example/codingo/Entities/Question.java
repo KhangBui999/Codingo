@@ -2,15 +2,22 @@ package com.example.codingo.Entities;
 
 import java.util.ArrayList;
 
+/**
+ * Model class for the quiz questions in QuizActivity
+ */
 public class Question {
     private String id;
     private String question;
     private ArrayList<String> answers; //database attribute will be answer1, answer2, etc...
     private int correctPosition;
 
-    public Question() {
-    }
-
+    /**
+     * Constructor class for the Question class
+     * @param id is the document ID in the Firebase server
+     * @param question is the question prompt e.g. What is a String?
+     * @param answers is the list of multiple-choice answers (only 4 answers are used)
+     * @param correctPosition is the correct position of the answer in the above list
+     */
     public Question(String id, String question, ArrayList<String> answers, int correctPosition) {
         this.id = id;
         this.question = question;

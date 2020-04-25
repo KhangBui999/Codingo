@@ -26,7 +26,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * The LoginActivity is a controller class that handles user input in the login form.
+ * It's main functions is to detect errors and run error handling code, execute db transactions with
+ * Firebase Firestore and any subsequent side effects of these code e.g. UI changes or launching
+ * BaseActivity (if login was successgul).
+ */
 public class LoginActivity extends AppCompatActivity {
+
 
     private final String TAG = "com.example.codingo.LoginActivity";
     private FirebaseAuth mAuth;
@@ -35,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLogin;
     private TextView mForgot, mRegister, mStatus;
     private ProgressBar mProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,23 +70,28 @@ public class LoginActivity extends AppCompatActivity {
 
                 //If and else statements check if the user has correctly entered login details
                 if(usernameField.isEmpty() && passwordField.isEmpty()) {
+                    //Empty fields for both username and password
                     mUsername.setError("Please enter an e-mail!");
                     mPassword.setError("Please enter a password!");
                 }
                 else if(usernameField.isEmpty()) {
+                    //Empty fields only for username
                     mUsername.setError("Please enter an e-mail!");
                     mUsername.requestFocus();
                 }
                 else if(passwordField.isEmpty()) {
+                    //Empty fields only for password
                     mPassword.setError("Please enter a password!");
                     mPassword.requestFocus();
                 }
                 else{
+                    //Start login authentication
                     attemptSignIn(usernameField, passwordField);
                 }
             }
         });
 
+        //Redirects user to the RegisterActivity screen
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
+
     /**
      * Launches the RegisterActivity when a user doesn't have an account.
      */
@@ -98,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
 
     /**
      * Executed after the onCreate method
@@ -108,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         bypassLogin(currentUser);
     }
+
 
     /**
      * attemptSignIn method is used to authenticate the user and handle UI changes
@@ -151,6 +167,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         //The following catch methods handles network problems
         catch (InterruptedException e) {
+            //Handles any network interruption between client and server
             Log.d(TAG, "InterruptedException thrown");
             e.printStackTrace();
             Toast.makeText(LoginActivity.this, "Authentication failed - interrupted error",
@@ -158,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
             reloadUI();
         }
         catch (ExecutionException e) {
+            //Execution error due to unknown network error
             Log.d(TAG, "ExecutionException thrown");
             e.printStackTrace();
             Toast.makeText(LoginActivity.this, "Authentication failed - execution error",
@@ -165,6 +183,7 @@ public class LoginActivity extends AppCompatActivity {
             reloadUI();
         }
         catch (TimeoutException e) {
+            //Handles any timeouts that occur
             Log.d(TAG, "TimeoutException thrown");
             e.printStackTrace();
             Toast.makeText(LoginActivity.this, "Authentication failed - timeout error",
@@ -172,10 +191,12 @@ public class LoginActivity extends AppCompatActivity {
             reloadUI();
         }
         catch (IllegalStateException e) {
+            //Handles any inappropriate input
             Log.d(TAG, "IllegalStateException thrown");
             e.printStackTrace();
         }
     }
+
 
     /**
      * Launches the BaseActivity in the event of a successful login
@@ -185,6 +206,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
 
     /**
      * Renders the UI to enable user to input login details
@@ -199,6 +221,7 @@ public class LoginActivity extends AppCompatActivity {
         mProgress.setVisibility(View.INVISIBLE);
         mStatus.setVisibility(View.INVISIBLE);
     }
+
 
     /**
      * Allows user to log in instantly if they have are still logged in on their phones.

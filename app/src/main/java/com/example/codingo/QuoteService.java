@@ -5,7 +5,9 @@ import com.example.codingo.Entities.Quote;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-//quotes/random
+/**
+ * Service class for the Programming Quotes API
+ */
 public interface QuoteService {
 
     @GET("quotes/random")

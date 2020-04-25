@@ -26,6 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A simple {@link Fragment} subclass that handles topic selection for the quizzes.
+ * Uses a RecyclerView to display the topic options and handles the launch of the quiz activity.
+ */
 public class QuizFragment extends Fragment {
 
     private final String TAG = "QuizFragment";

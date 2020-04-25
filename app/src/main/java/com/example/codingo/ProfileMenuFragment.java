@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 import com.example.codingo.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass that contains options to access the current user's profile,
+ * the leaderboard and the settings screen.
  */
 public class ProfileMenuFragment extends Fragment {
 

@@ -15,7 +15,8 @@ import android.widget.Toast;
 import com.example.codingo.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass that handles setting options for the SettingFragment.
+ * Available settings options are logging out and activating an easter egg.
  */
 public class SettingsFragment extends Fragment {
 
@@ -51,6 +52,9 @@ public class SettingsFragment extends Fragment {
         return root;
     }
 
+    /**
+     * Launches an easter egg.
+     */
     protected void launchSecretAction() {
         if (secretCount < 9) {
             secretCount++;
@@ -64,6 +68,9 @@ public class SettingsFragment extends Fragment {
         }
     }
 
+    /**
+     * Launches a dialog to ask if a user is sure they want to log out.
+     */
     private void logoutCurrentUser() {
         LogoutFragmentDialog dialog = new LogoutFragmentDialog();
         dialog.show(getActivity().getSupportFragmentManager(), TAG);

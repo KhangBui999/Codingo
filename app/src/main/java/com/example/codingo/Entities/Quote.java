@@ -3,6 +3,10 @@ package com.example.codingo.Entities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Quote model class - serves as an entity class for the Programming Quotes API
+ * Used as a data model in the HomeFragment.
+ */
 public class Quote {
 
     @SerializedName("_id")

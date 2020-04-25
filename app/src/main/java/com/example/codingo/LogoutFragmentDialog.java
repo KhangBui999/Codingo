@@ -10,6 +10,9 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Used to ensure a user really wants to log out rather than accidentally clicking the button.
+ */
 public class LogoutFragmentDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -20,6 +23,7 @@ public class LogoutFragmentDialog extends DialogFragment {
                 .setTitle("Logging out...")
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        //Handles the authentication aspect of the log out
                         FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);

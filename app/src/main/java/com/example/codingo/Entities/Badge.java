@@ -1,5 +1,9 @@
 package com.example.codingo.Entities;
 
+/**
+ * Model class for in-game badges/achievements.
+ * Used in the UserProfileFragment as a data model for badges.
+ */
 public class Badge {
     private String id;
     private String name;
@@ -7,6 +11,14 @@ public class Badge {
     private int imageId;
     private int position;
 
+    /**
+     * Constructor for the badge class
+     * @param id is the online document ID from the Firebase server
+     * @param name is the name of the badge/achievement
+     * @param desc is a description of the badge/achievemnet
+     * @param imageId is the R id of the badge image
+     * @param position the position of the badge in the list
+     */
     public Badge(String id, String name, String desc, int imageId, int position) {
         this.id = id;
         this.name = name;

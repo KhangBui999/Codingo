@@ -14,6 +14,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+/**
+ * BaseActivity hosts the BottomNavigationView for the majority of fragments in the Codingo app.
+ * This class handles most of the navigation for the mobile app and allows us to have a consistent
+ * UI throughout each screen/fragment.
+ */
 public class BaseActivity extends AppCompatActivity {
 
     private final String TAG = "com.example.codingo.BaseActivity";

@@ -33,6 +33,7 @@ import java.util.Map;
  */
 public class LearnTopicFragment extends Fragment {
 
+
     private final String TAG = "LearnTopicFragment";
     private RecyclerView mRecyclerView;
     private TopicAdapter mAdapter;
@@ -40,9 +41,11 @@ public class LearnTopicFragment extends Fragment {
     private TextView mStatus, mLoading;
     private ProgressBar mProgress;
 
+
     public LearnTopicFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +75,7 @@ public class LearnTopicFragment extends Fragment {
         return root;
     }
 
+
     /**
      * This handles the retrieval of available topics from the Firestore db.
      */
@@ -82,7 +86,11 @@ public class LearnTopicFragment extends Fragment {
         mProgress.setVisibility(View.VISIBLE);
 
         List<Topic> topics = new ArrayList<>(); //the topic list
+
+        //FirebaseFirestore transaction
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        //Get data from collection "content" where its order by the "position" field in asc order
         db.collection("content")
                 .orderBy("position", Query.Direction.ASCENDING)
                 .get()
@@ -93,17 +101,22 @@ public class LearnTopicFragment extends Fragment {
                             //Retrieves all available topics from the database
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
+
+                                //Converts document into a Map<String, Object>
                                 Map<String, Object> topicMap = document.getData();
                                 String id = document.getId();
                                 String topic = topicMap.get("topic").toString();
                                 String content = topicMap.get("content_body").toString();
                                 String video = topicMap.get("video_id").toString();
+
+                                //adds new topic to the list
                                 topics.add(new Topic(id, topic, true));
                             }
                             //Sets a new adapter list based on the Firestore results
                             mAdapter.setTopicList(topics);
                         }
                         else {
+                            //Error handling
                             Log.d(TAG, "Error getting documents: ", task.getException());
                             mStatus.setVisibility(View.VISIBLE);
                         }
@@ -114,18 +127,21 @@ public class LearnTopicFragment extends Fragment {
                 });
     }
 
+
     /**
      * Handles the navigation of the selected learning tool.
      * @param position of the row selected
      */
     private void launchLearningContent(int position) {
-        String type = getActivity().getIntent().getStringExtra("LEARN_TYPE");
-        getActivity().getIntent().putExtra("POSITION", position);
+        String type = getActivity().getIntent().getStringExtra("LEARN_TYPE"); //user choice from prev. frag.
+        getActivity().getIntent().putExtra("POSITION", position); //position == topic id
         if(getActivity() instanceof BaseActivity) {
             if(type.equals("Flashcards")) {
+                //Launch flashcards if user selected flashcard in prev. fragment
                 ((BaseActivity) getActivity()).getNavController().navigate(R.id.navigation_flashcard);
             }
             else if(type.equals("Videos")) {
+                //Launch video content if user selected videos in prev. fragment
                 ((BaseActivity) getActivity()).getNavController().navigate(R.id.navigation_video_learn);
             }
         }
