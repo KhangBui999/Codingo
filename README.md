@@ -47,13 +47,13 @@ git clone https://github.com/KhangBui999/Codingo.git
 * Quiz feature that allows user to accumulates points
 * Badge feature (collect them by getting 100% in a topic OR accumulating points)
 * User profile feature that displays total points, badges and quiz statistics
-* Use of [RobotHash Image API](https://robohash.org/) for randomised avatar images
+* Use of [RobotHash Avatar API](https://robohash.org/) for randomised avatar images
 * Leaderboard feature that showcases the Top 10 Players (by points)
 * Firebase implementation such as Firebase Authentication & Firebase Firestore
 
 ## Built With
 * [Programming Quotes API](https://github.com/skolakoda/programming-quotes-api)
-* [RobotHash Image API](https://robohash.org/)
+* [RobotHash Avatar API](https://robohash.org/)
 * [YouTubeAPI](https://developers.google.com/youtube/v3)
 * [Glide](https://github.com/bumptech/glide)
 * [Google Firebase](https://firebase.google.com/)
@@ -65,7 +65,7 @@ Our commit log can be seen by clicking [here](https://github.com/KhangBui999/Cod
 * [Khang Bui](https://github.com/KhangBui999) (z5209606) - Lead Developer
 * [Brian Vu](https://github.com/blabbit321) (z5209608) - Lead Product Manager
 * [Shara Bakal](https://github.com/SgilG91) (z5115841) - Lead UI/UX Designer
-* [Laurence Truong](https://github.com/laurence1111)(z5205455) - Lead Database Manager
+* [Laurence Truong](https://github.com/laurence1111) (z5205455) - Lead Database Manager
 
 ## Copyright and License
 This code was written by INFS3634 2020T1 Team 31 ([KhangBui999](https://github.com/KhangBui999), [blabbit321](https://github.com/blabbit321), [SgilG91](https://github.com/SgilG91) & [laurence1111](https://github.com/laurence1111)).
@@ -73,8 +73,8 @@ You may make copies, distribute and make derivative works of this work for any n
 The preferred way to do this is simply providing a link to this GitHub repository.
 
 ## Acknowledgements
-* [Skolakoda](https://github.com/skolakoda) - [Programming Quotes API](https://github.com/skolakoda/programming-quotes-api)
-* RobotHash - [RobotHash Image API](https://robohash.org/)
-* [Bumptech](https://github.com/bumptech) - [Glide](https://github.com/bumptech/glide)
-* [Medyo](https://gist.github.com/medyo) - [YouTubePlayerSupportFragmentX](https://gist.github.com/medyo/f226b967213c3b8ec6f6bebb5338a492)
+* [Skolakoda](https://github.com/skolakoda) - for use of the [Programming Quotes API](https://github.com/skolakoda/programming-quotes-api)
+* RobotHash - for use of the [RobotHash Avatar API](https://robohash.org/)
+* [Bumptech](https://github.com/bumptech) - for use of the [Glide](https://github.com/bumptech/glide) library
+* [Medyo](https://gist.github.com/medyo) - for use of the [YouTubePlayerSupportFragmentX](https://gist.github.com/medyo/f226b967213c3b8ec6f6bebb5338a492) code
 * [FreePik](https://www.flaticon.com/authors/freepik) - for various icons used in our application
