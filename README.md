@@ -37,7 +37,7 @@ git clone https://github.com/KhangBui999/Codingo.git
 * [Android Studio Installation](https://developer.android.com/studio)
 * [Guide on Installing Emulators](https://developer.android.com/studio/run/emulator#install)
 
-## Features Catalog
+## Features Catalogue
 * Login and registration feature
 * BottomNavigationView for easy and accessible navigation
 * Homepage/dashboard that showcases the use of FragmentTransactions & API calls
