@@ -7,6 +7,12 @@ APIs (refer to Built With or Acknowledgements section) and other services such a
 ## Read Before Starting
 This app implements Google Firebase as part of the database. Although the developers can not see your personal information, we <b>STRONGLY ADVISE</b> that you <b>DO NOT INPUT PERSONAL INFORMATION</b>.
 
+### Logging In & Registration
+* You are able to register an account if you wish
+* If you are uncomfortable with registering an account, you may use the below test accounts
+* <b>Username:</b> test1@codingo.com, test2@codingo.com, test3@codingo.com
+* <b>Password:</b> password
+
 ## Getting Started
 These instructions will get you a copy of the project up and running for development and testing purposes.
 
