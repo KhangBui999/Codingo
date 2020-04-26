@@ -57,6 +57,9 @@ git clone https://github.com/KhangBui999/Codingo.git
 * Leaderboard feature that showcases the Top 10 Players (by points)
 * Firebase implementation such as Firebase Authentication & Firebase Firestore
 
+## Screenshots
+Screenshots of our application can be seen by clicking [here](https://drive.google.com/drive/u/0/folders/1S1IfM75-Smt91m84SyxBDbbFbmc2IAfm).
+
 ## Built With
 * [Programming Quotes API](https://github.com/skolakoda/programming-quotes-api)
 * [RobotHash Avatar API](https://robohash.org/)
