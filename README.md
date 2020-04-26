@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running for develop
 
 ### Pre-requisites
 * Installed the latest version of Android Studio (as of 26/04/2020, 3.6 is recommended)
-* Have an Android device or emulator that runs Android Nougat (Android 7.1.1 recommended)
+* Have an Android device or emulator that runs Android Nougat or later (Android 7.1.1 recommended)
 * Recommended devices are the Google Pixel range (esp. for emulators as they are easy to install)
 * Possess a stable internet connection to fully utilise the application
 
